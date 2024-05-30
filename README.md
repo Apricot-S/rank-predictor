@@ -45,7 +45,7 @@ The meaning of each argument is as follows:
 |5|The score of the qijia (dealer at the start of a game) (起家の点数)|*1|
 |6|The score of the player right next to the qijia (起家の下家の点数)|*1|
 |7|The score of the player across from the qijia (起家の対面の点数)|*1|
-|8|The score of the player left next to the qijia (起家の上家の点数)|Only applicable when the number of players is `4`*1|
+|8|The score of the player left next to the qijia (起家の上家の点数)|Applies only if number of players is `4`*1|
 
 *1: Accepts only integers greater than or equal to 0. The total score must be 1000 for 4-player mahjong and 1050 for 3-player mahjong. The total score is calculated as follows:
 
