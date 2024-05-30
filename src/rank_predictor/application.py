@@ -1,5 +1,19 @@
-import sys
+import argparse
 
-import rank_predictor
 
-sys.exit(rank_predictor.main())
+def convert() -> int:
+    import rank_predictor.convert
+
+    return 0
+
+
+def train() -> int:
+    import rank_predictor.train
+
+    return 0
+
+
+def predict() -> int:
+    import rank_predictor.predict
+
+    return 0
