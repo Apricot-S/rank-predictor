@@ -1,0 +1,77 @@
+[project]
+name = "rank-predictor"
+version = "0.1.0"
+description = "A tool for predict expected final rank in Japanese mahjong."
+authors = [
+    { name = "Apricot-S" }
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">= 3.12"
+classifiers = [
+    "Private :: Do Not Upload",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Games/Entertainment :: Board Games",
+]
+dependencies = [
+    "scikit-learn>=1.5.0",
+    "polars>=0.20.30",
+]
+
+[project.scripts]
+"rank-predictor-convert" = "rank_predictor.application:convert"
+"rank-predictor-train" = "rank_predictor.application:train"
+"rank-predictor-predict" = "rank_predictor.application:predict"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "mypy>=1.10.0",
+    "ruff>=0.4.6",
+]
+
+[tool.rye.scripts]
+format = "ruff format src"
+lint = { chain = ["ruff check src", "mypy src"] }
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rank_predictor"]
+
+[tool.ruff]
+target-version = "py312"
+src = ["src"]
+line-length = 79
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D", # pydocstyle
+
+    "C901",    # complex-structure
+    "ANN002",  # missing-type-args
+    "ANN003",  # missing-type-kwargs
+    "ANN101",  # missing-type-self
+    "ANN102",  # missing-type-cls
+    "TD002",   # missing-todo-author
+    "TD003",   # missing-todo-link
+    "PLR0911", # too-many-return-statements
+    "PLR0912", # too-many-branches
+    "PLR0913", # too-many-arguments
+    "PLR0915", # too-many-statements
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 72
+ignore-overlong-task-comments = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
