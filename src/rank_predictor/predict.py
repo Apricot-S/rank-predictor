@@ -25,4 +25,4 @@ def predict(
 def calculate_average_rank(
     matrix: ProbabilityMatrix,
 ) -> tuple[float, float, float, float] | tuple[float, float, float]:
-    return (0.25, 0.25, 0.25, 0.25)
+    return (2.5, 2.5, 2.5, 2.5)
