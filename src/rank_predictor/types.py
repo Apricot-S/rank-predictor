@@ -9,6 +9,32 @@ class NumPlayer(IntEnum):
     THREE = 3
 
 
+class Round(IntEnum):
+    EAST_1 = 1
+    EAST_2 = 2
+    EAST_3 = 3
+    EAST_4 = 4
+    SOUTH_1 = 5
+    SOUTH_2 = 6
+    SOUTH_3 = 7
+    SOUTH_4 = 8
+
+
+class _RecordRound(IntEnum):
+    EAST_1 = 1
+    EAST_2 = 2
+    EAST_3 = 3
+    EAST_4 = 4
+    SOUTH_1 = 5
+    SOUTH_2 = 6
+    SOUTH_3 = 7
+    SOUTH_4 = 8
+    WEST_1 = 9
+    WEST_2 = 10
+    WEST_3 = 11
+    WEST_4 = 12
+
+
 RankProbabilities4: TypeAlias = tuple[float, float, float, float]
 RankProbabilities3: TypeAlias = tuple[float, float, float]
 RankProbabilities: TypeAlias = RankProbabilities4 | RankProbabilities3

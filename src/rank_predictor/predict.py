@@ -3,13 +3,13 @@ from pathlib import Path
 
 import polars as pl
 
-from rank_predictor.types import NumPlayer, ProbabilityMatrix
+from rank_predictor.types import NumPlayer, ProbabilityMatrix, Round
 
 
 def predict(
     num_player: NumPlayer,
     model: Path,
-    round: int,
+    round: Round,
     num_counter_stick: int,
     num_riichi_deposit: int,
     score: tuple[int, int, int, int] | tuple[int, int, int],
