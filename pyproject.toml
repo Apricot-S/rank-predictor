@@ -23,7 +23,7 @@ dependencies = [
 [project.scripts]
 "rank-predictor-convert" = "rank_predictor.application:convert"
 "rank-predictor-train" = "rank_predictor.application:train"
-"rank-predictor-predict" = "rank_predictor.application:predict"
+"rank-predictor" = "rank_predictor.application:predict"
 
 [build-system]
 requires = ["hatchling"]

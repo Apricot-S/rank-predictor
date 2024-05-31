@@ -47,7 +47,7 @@ The meaning of each argument is as follows:
 ### Predicting expected final rank
 
 ```sh
-rank-predictor-predict 4 1 0 0 25000 25000 25000 25000 --model model.pickle
+rank-predictor 4 1 0 0 25000 25000 25000 25000 --model model.pickle
 ```
 
 The meaning of each argument is as follows:
