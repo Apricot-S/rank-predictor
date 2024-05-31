@@ -35,6 +35,14 @@ class _RecordRound(IntEnum):
     WEST_4 = 12
 
 
+Scores4: TypeAlias = tuple[int, int, int, int]
+Scores3: TypeAlias = tuple[int, int, int]
+Scores: TypeAlias = Scores4 | Scores3
+
+Ranks4: TypeAlias = tuple[int, int, int, int]
+Ranks3: TypeAlias = tuple[int, int, int]
+Ranks: TypeAlias = Ranks4 | Ranks3
+
 RankProbabilities4: TypeAlias = tuple[float, float, float, float]
 RankProbabilities3: TypeAlias = tuple[float, float, float]
 RankProbabilities: TypeAlias = RankProbabilities4 | RankProbabilities3
