@@ -28,7 +28,7 @@ The meaning of each argument is as follows:
 |-|-|-|
 |1|The number of players|Accepts only `4` or `3`|
 |2|Path to the directory where game records are stored||
-|3|Path to the file containing round, score, and final rank||
+|3|Path to the file containing round, score, and final score||
 
 ### Training and saving a model
 
