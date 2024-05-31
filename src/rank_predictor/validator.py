@@ -19,6 +19,7 @@ def validate_input_score_3(score: int) -> None:
 
 
 def validate_input_score(score: int, num_player: NumPlayer) -> None:
+    score = score // 100
     match num_player:
         case NumPlayer.FOUR:
             validate_input_score_4(score)
