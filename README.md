@@ -6,12 +6,10 @@ Reference (Broken Link): <http://critter.sakura.ne.jp/jun_keisan_setumei.html>
 
 ## Installation
 
-Activate virtual environment. We need Python (we require at least 3.12).
+We need Python (we require at least 3.12).
 
 ```sh
-rank-predictor$ python3 -m venv .venv
-rank-predictor$ . .venv/bin/activate
-(.venv) rank-predictor$ python3 -m pip install .
+rank-predictor$ pip install .
 ```
 
 ## Usage
