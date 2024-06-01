@@ -33,7 +33,7 @@ The meaning of each argument is as follows:
 ### Training and saving a model
 
 ```sh
-rank-predictor-train 4 training-data.csv model.pickle
+rank-predictor-train 4 config.toml training-data.csv model.pickle
 ```
 
 The meaning of each argument is as follows:
@@ -41,8 +41,9 @@ The meaning of each argument is as follows:
 |Index|Explanation|Note|
 |-|-|-|
 |1|The number of players|Accepts only `4` or `3`|
-|2|Path to the file containing round, score, and final rank||
-|3|Path to the file where the trained model is saved||
+|2|Path to the file containing configurations for training||
+|3|Path to the file containing round, score, and final rank||
+|4|Path to the file where the trained model is saved||
 
 ### Predicting expected final rank
 
