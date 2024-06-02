@@ -5,7 +5,7 @@ description = "A tool for predict expected final rank in Japanese mahjong."
 authors = [
     { name = "Apricot-S" }
 ]
-license = "MIT"
+license = { text = "MIT License" }
 readme = "README.md"
 requires-python = ">= 3.12"
 classifiers = [
