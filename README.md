@@ -57,7 +57,7 @@ The meaning of each argument is as follows:
 |-|-|-|
 |1|The number of players|Accepts only `4` or `3`|
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
-|3|The number of round|East 1 (東1局) is `1`, South 1 (南1局) is `5`. Accepts only from `1` to `8`|
+|3|The number of round|East 1 (東1局) is `0`, South 1 (南1局) is `4`. Accepts only from `0` to `7`|
 |4|The number of counter sticks (本場)|Accepts only from `0` to `99`|
 |5|The number of riichi deposits (供託本数)|\*1|
 |6|The score of the qijia (dealer at the start of a game) (起家の点数)|\*1\*2|
