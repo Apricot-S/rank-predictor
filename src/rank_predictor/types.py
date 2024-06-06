@@ -15,14 +15,14 @@ class GameLength(StrEnum):
 
 
 class Round(IntEnum):
-    EAST_1 = 1
-    EAST_2 = 2
-    EAST_3 = 3
-    EAST_4 = 4
-    SOUTH_1 = 5
-    SOUTH_2 = 6
-    SOUTH_3 = 7
-    SOUTH_4 = 8
+    EAST_1 = 0
+    EAST_2 = 1
+    EAST_3 = 2
+    EAST_4 = 3
+    SOUTH_1 = 4
+    SOUTH_2 = 5
+    SOUTH_3 = 6
+    SOUTH_4 = 7
 
 
 Scores4: TypeAlias = tuple[int, int, int, int]
