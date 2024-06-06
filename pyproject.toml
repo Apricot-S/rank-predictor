@@ -75,3 +75,7 @@ ignore-overlong-task-comments = true
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[[tool.mypy.overrides]]
+module = ["sklearn"]
+ignore_missing_imports = true
