@@ -124,6 +124,17 @@ def parse_result(result: str, num_player: NumPlayer) -> list[int] | None:
     return score_numbers
 
 
+def _create_line(
+    state: RoundState,
+    score: list[int],
+    result: list[int],
+) -> str:
+    return (
+        f"{state.round_},{state.num_counter_stick},{state.num_riichi_deposit},"
+        f"{','.join(map(str, score))},{','.join(map(str, result))}\n"
+    )
+
+
 def convert(
     num_player: NumPlayer,
     game_length: GameLength,
@@ -250,13 +261,5 @@ def convert(
 
         with training_data.open("a") as f:
             for st, sc in zip(states, scores, strict=True):
-                line = (
-                    f"{st.round_},"
-                    f"{st.num_counter_stick},"
-                    f"{st.num_riichi_deposit},"
-                )
-                line += ",".join(map(str, sc))
-                line += ","
-                line += ",".join(map(str, result))
-                line += "\n"
+                line = _create_line(st, sc, result)
                 f.write(line)
