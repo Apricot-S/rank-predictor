@@ -25,6 +25,20 @@ class RoundState:
     num_riichi_deposit: int
 
 
+def parse_game_type(game_type: int) -> tuple[NumPlayer, GameLength]:
+    num_player = (
+        NumPlayer.THREE
+        if game_type & TenhouGameType.IS_THREE_PLAYER
+        else NumPlayer.FOUR
+    )
+    game_length = (
+        GameLength.HANCHAN
+        if game_type & TenhouGameType.IS_HANCHAN
+        else GameLength.TONPU
+    )
+    return (num_player, game_length)
+
+
 def parse_seed(seed: str) -> RoundState | None:
     seed_list = seed.split(",")
     if len(seed_list) != 6:  # noqa: PLR2004
@@ -177,20 +191,10 @@ def convert(
             logger.warning("`type` is not a number.: %s", game_type)
             continue
 
-        log_num_player = (
-            NumPlayer.THREE
-            if bool(game_type & TenhouGameType.IS_THREE_PLAYER)
-            else NumPlayer.FOUR
-        )
+        log_num_player, log_game_length = parse_game_type(game_type)
         if log_num_player != num_player:
             logger.info("This mjlog is not a target.: %s", log_num_player)
             continue
-
-        log_game_length = (
-            GameLength.HANCHAN
-            if bool(game_type & TenhouGameType.IS_HANCHAN)
-            else GameLength.TONPU
-        )
         if log_game_length != game_length:
             logger.info("This mjlog is not a target.: %s", log_game_length)
             continue
