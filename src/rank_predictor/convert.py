@@ -2,15 +2,12 @@ from dataclasses import dataclass
 from enum import IntFlag
 from logging import getLogger
 from pathlib import Path
-from typing import Final
 
 from defusedxml import ElementTree
 
 from rank_predictor.types import GameLength, NumPlayer
 
 logger = getLogger(__name__)
-
-MJLOG_ROOT_TAG: Final = "mjloggm"
 
 
 class TenhouGameType(IntFlag):
@@ -171,7 +168,7 @@ def convert(
         tree = ElementTree.parse(file)
         root = tree.getroot()
 
-        if root.tag != MJLOG_ROOT_TAG:
+        if root.tag != "mjloggm":
             logger.warning("This file is not in mjlog format.")
             continue
 
