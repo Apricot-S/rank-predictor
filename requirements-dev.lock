@@ -9,6 +9,8 @@
 #   generate-hashes: false
 
 -e file:.
+defusedxml==0.7.1
+    # via rank-predictor
 joblib==1.4.2
     # via scikit-learn
 mypy==1.10.0
