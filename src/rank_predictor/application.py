@@ -1,12 +1,17 @@
 import argparse
-from logging import INFO, StreamHandler, basicConfig
+from logging import INFO, Formatter, StreamHandler, basicConfig
 from pathlib import Path
 
 from rank_predictor.types import GameLength, NumPlayer
 
 LOG_LEVEL = INFO
+
 stream_handler = StreamHandler()
 stream_handler.setLevel(LOG_LEVEL)
+
+formatter = Formatter("%(message)s")
+stream_handler.setFormatter(formatter)
+
 basicConfig(level=LOG_LEVEL, handlers=[stream_handler])
 
 
