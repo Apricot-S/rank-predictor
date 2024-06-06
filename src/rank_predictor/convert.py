@@ -202,27 +202,35 @@ def convert(
 
         states: list[RoundState] = []
         scores: list[list[int]] = []
+        continue_ = False
         for init in inits:
             seed = init.get("seed")
             if not isinstance(seed, str):
                 logger.warning("`INIT` tag is missing a `seed` attribute.")
-                continue
+                continue_ = True
+                break
 
             state = parse_seed(seed)
             if state is None:
-                continue
+                continue_ = True
+                break
 
             ten = init.get("ten")
             if not isinstance(ten, str):
                 logger.warning("`INIT` tag is missing a `ten` attribute.")
-                continue
+                continue_ = True
+                break
 
             score = parse_score(ten, log_num_player)
             if score is None:
-                continue
+                continue_ = True
+                break
 
             states.append(state)
             scores.append(score)
+
+        if continue_:
+            continue
 
         owari = None
         agaris = root.findall("AGARI")
