@@ -3,11 +3,18 @@ from pathlib import Path
 
 import polars as pl
 
-from rank_predictor.types import NumPlayer, ProbabilityMatrix, Round, Scores
+from rank_predictor.types import (
+    GameLength,
+    NumPlayer,
+    ProbabilityMatrix,
+    Round,
+    Scores,
+)
 
 
 def predict(
     num_player: NumPlayer,
+    game_length: GameLength,
     round: Round,
     num_counter_stick: int,
     num_riichi_deposit: int,

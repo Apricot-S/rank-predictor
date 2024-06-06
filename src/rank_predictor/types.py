@@ -1,12 +1,17 @@
 # ruff: noqa: UP040
 
-from enum import IntEnum
+from enum import IntEnum, StrEnum
 from typing import TypeAlias  # mypy is not supported PEP 695
 
 
 class NumPlayer(IntEnum):
     FOUR = 4
     THREE = 3
+
+
+class GameLength(StrEnum):
+    TONPU = "t"
+    HANCHAN = "h"
 
 
 class Round(IntEnum):

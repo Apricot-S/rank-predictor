@@ -6,11 +6,12 @@ import polars as pl
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-from rank_predictor.types import NumPlayer
+from rank_predictor.types import GameLength, NumPlayer
 
 
 def train(
     num_player: NumPlayer,
+    game_length: GameLength,
     config: Path,
     training_data: Path,
     model: Path,
