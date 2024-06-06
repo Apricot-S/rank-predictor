@@ -250,11 +250,14 @@ def convert(
 
         with training_data.open("a") as f:
             for st, sc in zip(states, scores, strict=True):
-                f.write(f"{st.round_},")
-                f.write(f"{st.num_counter_stick},")
-                f.write(f"{st.num_riichi_deposit},")
-                for s in sc:
-                    f.write(f"{s},")
-                for r in result:
-                    f.write(f"{r},")
-                f.write("\n")
+                line = (
+                    f"{st.round_},"
+                    f"{st.num_counter_stick},"
+                    f"{st.num_riichi_deposit},"
+                )
+                line += ",".join(map(str, sc))
+                line += ","
+                line += ",".join(map(str, result))
+                line += ","
+                line += "\n"
+                f.write(line)
