@@ -258,6 +258,5 @@ def convert(
                 line += ",".join(map(str, sc))
                 line += ","
                 line += ",".join(map(str, result))
-                line += ","
                 line += "\n"
                 f.write(line)
