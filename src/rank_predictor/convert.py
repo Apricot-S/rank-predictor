@@ -164,12 +164,13 @@ def convert(
     length_name = "Tonpu" if game_length == GameLength.TONPU else "Hanchan"
     logger.info("Conversion target: %s-Player, %s", num_player, length_name)
 
+    header = "round,num_counter_stick,num_riichi_deposit,"
+    header += ",".join(f"current_score_{i}" for i in range(num_player))
+    header += ","
+    header += ",".join(f"final_score_{i}" for i in range(num_player))
+    header += "\n"
     with training_data.open("w") as f:
-        f.write(
-            "round,num_counter_stick,num_riichi_deposit,"
-            "current_score_0,current_score_1,current_score_2,current_score_3,"
-            "final_score_0,final_score_1,final_score_2,final_score_3\n",
-        )
+        f.write(header)
 
     for file in game_record_dir.glob(
         f"*.{game_record_extension}",
