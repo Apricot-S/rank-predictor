@@ -23,12 +23,24 @@ class _RoundState:
     num_riichi_deposit: int
 
 
-def _create_header(num_player: NumPlayer) -> str:
+def _create_header(
+    num_player: NumPlayer,
+    *,
+    output_final_score: bool,
+    output_filename: bool,
+) -> str:
     header = "round,num_counter_stick,num_riichi_deposit,"
-    header += ",".join(f"current_score_{i}" for i in range(num_player))
-    header += ","
-    header += ",".join(f"final_score_{i}" for i in range(num_player))
-    header += ",rank_class\n"
+    header += ",".join(f"score_{i}" for i in range(num_player))
+    header += ",rank_class"
+
+    if output_final_score:
+        header += ","
+        header += ",".join(f"final_score_{i}" for i in range(num_player))
+
+    if output_filename:
+        header += ",filename"
+
+    header += "\n"
     return header
 
 
@@ -138,13 +150,25 @@ def _create_line(
     state: _RoundState,
     score: list[int],
     result: list[int],
+    game_record_file: Path | None,
+    *,
+    output_final_score: bool,
 ) -> str:
     rank_class = classify(result)
-    return (
+    line = (
         f"{state.round_},{state.num_counter_stick},{state.num_riichi_deposit},"
-        f"{','.join(map(str, score))},{','.join(map(str, result))},"
-        f"{rank_class}\n"
+        f"{','.join(map(str, score))},"
+        f"{rank_class}"
     )
+
+    if output_final_score:
+        line += f",{','.join(map(str, result))}"
+
+    if game_record_file is not None:
+        line += f",{game_record_file.name}"
+
+    line += "\n"
+    return line
 
 
 def convert(
@@ -153,6 +177,9 @@ def convert(
     game_record_dir: Path,
     game_record_extension: str,
     annotated_data: Path,
+    *,
+    output_final_score: bool,
+    output_filename: bool,
 ) -> None:
     if not game_record_dir.is_dir():
         msg = f"`game_record_dir` is not directory: {game_record_dir}"
@@ -176,7 +203,11 @@ def convert(
     length_name = "Tonpu" if game_length == GameLength.TONPU else "Hanchan"
     logger.info("Conversion target: %s-Player, %s", num_player, length_name)
 
-    header = _create_header(num_player)
+    header = _create_header(
+        num_player,
+        output_final_score=output_final_score,
+        output_filename=output_filename,
+    )
     with annotated_data.open("w") as f:
         f.write(header)
 
@@ -271,7 +302,13 @@ def convert(
 
         with annotated_data.open("a") as f:
             for st, sc in zip(states, scores, strict=True):
-                line = _create_line(st, sc, result)
+                line = _create_line(
+                    st,
+                    sc,
+                    result,
+                    file if output_filename else None,
+                    output_final_score=output_final_score,
+                )
                 f.write(line)
 
     logger.info("Conversion is complete.")

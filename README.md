@@ -29,6 +29,8 @@ The meaning of each argument is as follows:
 |3|Path to the directory where game records are stored|Only files directly under the directory are targeted|
 |4|Extension of game records|Case-sensitive|
 |5|Path to the file containing round state, score, and final rank class||
+|6|(Optional) Outputs final score|Enabled by specifying `-f` or `--final-score`|
+|7|(Optional) Outputs game record file name|Enabled by specifying `-n` or `--filename`|
 
 ### Training and saving a model
 
