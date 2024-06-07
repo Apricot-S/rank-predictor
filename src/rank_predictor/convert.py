@@ -143,16 +143,16 @@ def convert(
     game_length: GameLength,
     game_record_dir: Path,
     game_record_extension: str,
-    training_data: Path,
+    annotated_data: Path,
 ) -> None:
     if not game_record_dir.is_dir():
         msg = f"`game_record_dir` is not directory: {game_record_dir}"
         raise FileNotFoundError(msg)
 
-    if training_data.is_dir():
+    if annotated_data.is_dir():
         msg = (
-            "A directory with the same name as `training_data` exists:"
-            f" {training_data}"
+            "A directory with the same name as `annotated_data` exists:"
+            f" {annotated_data}"
         )
         raise FileExistsError(msg)
 
@@ -172,7 +172,7 @@ def convert(
     header += ","
     header += ",".join(f"final_score_{i}" for i in range(num_player))
     header += ",rank_class\n"
-    with training_data.open("w") as f:
+    with annotated_data.open("w") as f:
         f.write(header)
 
     for file in game_record_dir.glob(
@@ -264,7 +264,7 @@ def convert(
         if result is None:
             continue
 
-        with training_data.open("a") as f:
+        with annotated_data.open("a") as f:
             for st, sc in zip(states, scores, strict=True):
                 line = _create_line(st, sc, result)
                 f.write(line)
