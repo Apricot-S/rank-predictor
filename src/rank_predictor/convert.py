@@ -23,6 +23,15 @@ class _RoundState:
     num_riichi_deposit: int
 
 
+def _create_header(num_player: NumPlayer) -> str:
+    header = "round,num_counter_stick,num_riichi_deposit,"
+    header += ",".join(f"current_score_{i}" for i in range(num_player))
+    header += ","
+    header += ",".join(f"final_score_{i}" for i in range(num_player))
+    header += ",rank_class\n"
+    return header
+
+
 def _parse_game_type(game_type: int) -> tuple[NumPlayer, GameLength]:
     num_player = (
         NumPlayer.THREE
@@ -167,11 +176,7 @@ def convert(
     length_name = "Tonpu" if game_length == GameLength.TONPU else "Hanchan"
     logger.info("Conversion target: %s-Player, %s", num_player, length_name)
 
-    header = "round,num_counter_stick,num_riichi_deposit,"
-    header += ",".join(f"current_score_{i}" for i in range(num_player))
-    header += ","
-    header += ",".join(f"final_score_{i}" for i in range(num_player))
-    header += ",rank_class\n"
+    header = _create_header(num_player)
     with annotated_data.open("w") as f:
         f.write(header)
 
