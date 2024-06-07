@@ -264,3 +264,5 @@ def convert(
             for st, sc in zip(states, scores, strict=True):
                 line = _create_line(st, sc, result)
                 f.write(line)
+
+    logger.info("Conversion is complete.")
