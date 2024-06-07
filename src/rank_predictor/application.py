@@ -33,6 +33,10 @@ def convert() -> int:
         type=str,
     )
     parser.add_argument(
+        "game_record_extension",
+        type=str,
+    )
+    parser.add_argument(
         "training_data",
         type=str,
     )
@@ -41,12 +45,14 @@ def convert() -> int:
     num_player = NumPlayer(args.num_player)
     game_length = GameLength(args.game_length)
     game_record_dir = Path(args.game_record_dir)
+    game_record_extension: str = args.game_record_extension
     training_data = Path(args.training_data)
 
     rank_predictor.convert.convert(
         num_player,
         game_length,
         game_record_dir,
+        game_record_extension,
         training_data,
     )
     return 0

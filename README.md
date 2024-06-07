@@ -17,7 +17,7 @@ rank-predictor$ pip install .
 ### Converting the mjlog format game records into the training data
 
 ```sh
-rank-predictor-convert 4 h game_record training-data.csv
+rank-predictor-convert 4 h game_record xml training-data.csv
 ```
 
 The meaning of each argument is as follows:
@@ -27,7 +27,8 @@ The meaning of each argument is as follows:
 |1|The number of players|Accepts only `4` or `3`|
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
 |3|Path to the directory where game records are stored||
-|4|Path to the file containing round, score, and final score||
+|4|Extension of game records|Case-sensitive|
+|5|Path to the file containing round, score, and final score||
 
 ### Training and saving a model
 

@@ -139,6 +139,7 @@ def convert(
     num_player: NumPlayer,
     game_length: GameLength,
     game_record_dir: Path,
+    game_record_extension: str,
     training_data: Path,
 ) -> None:
     if not game_record_dir.is_dir():
@@ -174,7 +175,10 @@ def convert(
             "final_score_0,final_score_1,final_score_2,final_score_3\n",
         )
 
-    for file in game_record_dir.glob("*.xml"):
+    for file in game_record_dir.glob(
+        f"*.{game_record_extension}",
+        case_sensitive=True,
+    ):
         logger.info("Parsing... : %s", file.name)
         tree = ElementTree.parse(file)
         root = tree.getroot()
