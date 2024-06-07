@@ -10,7 +10,7 @@ from rank_predictor.types import GameLength, NumPlayer
 logger = getLogger(__name__)
 
 
-class _TenhouGameType(IntFlag):
+class _GameType(IntFlag):
     IS_HANCHAN = 0x008
     IS_THREE_PLAYER = 0x010
 
@@ -25,12 +25,12 @@ class _RoundState:
 def _parse_game_type(game_type: int) -> tuple[NumPlayer, GameLength]:
     num_player = (
         NumPlayer.THREE
-        if game_type & _TenhouGameType.IS_THREE_PLAYER
+        if game_type & _GameType.IS_THREE_PLAYER
         else NumPlayer.FOUR
     )
     game_length = (
         GameLength.HANCHAN
-        if game_type & _TenhouGameType.IS_HANCHAN
+        if game_type & _GameType.IS_HANCHAN
         else GameLength.TONPU
     )
     return (num_player, game_length)
