@@ -10,33 +10,33 @@ from rank_predictor.types import GameLength, NumPlayer
 logger = getLogger(__name__)
 
 
-class TenhouGameType(IntFlag):
+class _TenhouGameType(IntFlag):
     IS_HANCHAN = 0x008
     IS_THREE_PLAYER = 0x010
 
 
 @dataclass
-class RoundState:
+class _RoundState:
     round_: int
     num_counter_stick: int
     num_riichi_deposit: int
 
 
-def parse_game_type(game_type: int) -> tuple[NumPlayer, GameLength]:
+def _parse_game_type(game_type: int) -> tuple[NumPlayer, GameLength]:
     num_player = (
         NumPlayer.THREE
-        if game_type & TenhouGameType.IS_THREE_PLAYER
+        if game_type & _TenhouGameType.IS_THREE_PLAYER
         else NumPlayer.FOUR
     )
     game_length = (
         GameLength.HANCHAN
-        if game_type & TenhouGameType.IS_HANCHAN
+        if game_type & _TenhouGameType.IS_HANCHAN
         else GameLength.TONPU
     )
     return (num_player, game_length)
 
 
-def parse_seed(seed: str) -> RoundState | None:
+def _parse_seed(seed: str) -> _RoundState | None:
     seed_list = seed.split(",")
     if len(seed_list) != 6:  # noqa: PLR2004
         logger.warning("The number of `seed` is invalid.: %s", seed_list)
@@ -72,14 +72,14 @@ def parse_seed(seed: str) -> RoundState | None:
         )
         return None
 
-    return RoundState(
+    return _RoundState(
         round_=round_,
         num_counter_stick=num_counter_stick,
         num_riichi_deposit=num_riichi_deposit,
     )
 
 
-def parse_score(score: str, num_player: NumPlayer) -> list[int] | None:
+def _parse_score(score: str, num_player: NumPlayer) -> list[int] | None:
     score_list = score.split(",")
     if len(score_list) != num_player:
         logger.warning("The number of `ten` is invalid.: %s", score_list)
@@ -104,7 +104,7 @@ def parse_score(score: str, num_player: NumPlayer) -> list[int] | None:
     return score_numbers
 
 
-def parse_result(result: str, num_player: NumPlayer) -> list[int] | None:
+def _parse_result(result: str, num_player: NumPlayer) -> list[int] | None:
     result_list = result.split(",")
     if len(result_list) != (num_player * 2):
         logger.warning("The number of `owari` is invalid.: %s", result_list)
@@ -125,7 +125,7 @@ def parse_result(result: str, num_player: NumPlayer) -> list[int] | None:
 
 
 def _create_line(
-    state: RoundState,
+    state: _RoundState,
     score: list[int],
     result: list[int],
 ) -> str:
@@ -199,7 +199,7 @@ def convert(
             logger.warning("`type` is not a number.: %s", game_type)
             continue
 
-        log_num_player, log_game_length = parse_game_type(game_type)
+        log_num_player, log_game_length = _parse_game_type(game_type)
         if log_num_player != num_player:
             logger.info("This mjlog is not a target.: %s", log_num_player)
             continue
@@ -212,7 +212,7 @@ def convert(
             logger.warning("`INIT` tag is not included.")
             continue
 
-        states: list[RoundState] = []
+        states: list[_RoundState] = []
         scores: list[list[int]] = []
         continue_ = False
         for init in inits:
@@ -222,7 +222,7 @@ def convert(
                 continue_ = True
                 break
 
-            state = parse_seed(seed)
+            state = _parse_seed(seed)
             if state is None:
                 continue_ = True
                 break
@@ -233,7 +233,7 @@ def convert(
                 continue_ = True
                 break
 
-            score = parse_score(ten, log_num_player)
+            score = _parse_score(ten, log_num_player)
             if score is None:
                 continue_ = True
                 break
@@ -255,7 +255,7 @@ def convert(
             logger.warning("There is no score at the end of the game.")
             continue
 
-        result = parse_result(owari, log_num_player)
+        result = _parse_result(owari, log_num_player)
         if result is None:
             continue
 
