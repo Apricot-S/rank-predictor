@@ -5,6 +5,7 @@ from pathlib import Path
 
 from defusedxml import ElementTree
 
+from rank_predictor.rank import classify
 from rank_predictor.types import GameLength, NumPlayer
 
 logger = getLogger(__name__)
@@ -129,9 +130,11 @@ def _create_line(
     score: list[int],
     result: list[int],
 ) -> str:
+    rank_class = classify(result)
     return (
         f"{state.round_},{state.num_counter_stick},{state.num_riichi_deposit},"
-        f"{','.join(map(str, score))},{','.join(map(str, result))}\n"
+        f"{','.join(map(str, score))},{','.join(map(str, result))},"
+        f"{rank_class}\n"
     )
 
 
@@ -168,7 +171,7 @@ def convert(
     header += ",".join(f"current_score_{i}" for i in range(num_player))
     header += ","
     header += ",".join(f"final_score_{i}" for i in range(num_player))
-    header += "\n"
+    header += ",rank_class\n"
     with training_data.open("w") as f:
         f.write(header)
 
