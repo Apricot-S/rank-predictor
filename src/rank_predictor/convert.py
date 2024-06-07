@@ -157,15 +157,11 @@ def convert(
         msg = f"Unsupported number of players selected: {num_player}"
         raise ValueError(msg)
 
-    match game_length:
-        case GameLength.TONPU:
-            length_name = "Tonpu"
-        case GameLength.HANCHAN:
-            length_name = "Hanchan"
-        case unsupported_length:
-            msg = f"Unsupported game length selected: {unsupported_length}"
-            raise ValueError(msg)
+    if game_length not in GameLength:
+        msg = f"Unsupported game length selected: {game_length}"
+        raise ValueError(msg)
 
+    length_name = "Tonpu" if game_length == GameLength.TONPU else "Hanchan"
     logger.info("Conversion target: %s-Player, %s", num_player, length_name)
 
     with training_data.open("w") as f:
@@ -204,11 +200,12 @@ def convert(
             continue
 
         log_num_player, log_game_length = _parse_game_type(game_type)
-        if log_num_player != num_player:
-            logger.info("This mjlog is not a target.: %s", log_num_player)
-            continue
-        if log_game_length != game_length:
-            logger.info("This mjlog is not a target.: %s", log_game_length)
+        if (log_num_player != num_player) or (log_game_length != game_length):
+            logger.info(
+                "This mjlog is not a target.: %s-Player, %s",
+                log_num_player,
+                "Tonpu" if log_game_length == GameLength.TONPU else "Hanchan",
+            )
             continue
 
         inits = root.findall("INIT")
