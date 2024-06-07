@@ -26,7 +26,7 @@ The meaning of each argument is as follows:
 |-|-|-|
 |1|The number of players|Accepts only `4` or `3`|
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
-|3|Path to the directory where game records are stored||
+|3|Path to the directory where game records are stored|Only files directly under the directory are targeted|
 |4|Extension of game records|Case-sensitive|
 |5|Path to the file containing round, score, and final score||
 
