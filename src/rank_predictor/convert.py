@@ -104,9 +104,15 @@ def _parse_seed(seed: str) -> _RoundState | None:
 
 def _parse_score(score: str, num_player: NumPlayer) -> list[int] | None:
     score_list = score.split(",")
-    if len(score_list) != num_player:
+
+    # Even in the case of 3-player, there are 4 scores in `ten`.
+    # example: ten="350,350,350,0"  # noqa: ERA001
+    if len(score_list) != NumPlayer.FOUR:
         logger.warning("The number of `ten` is invalid.: %s", score_list)
         return None
+
+    if num_player == NumPlayer.THREE:
+        score_list.pop(3)
 
     try:
         score_numbers = [int(x) for x in score_list]
@@ -129,11 +135,17 @@ def _parse_score(score: str, num_player: NumPlayer) -> list[int] | None:
 
 def _parse_result(result: str, num_player: NumPlayer) -> list[int] | None:
     result_list = result.split(",")
-    if len(result_list) != (num_player * 2):
+
+    # Even in the case of 3-player, there are 4 scores in `owari`.
+    # example: owari="400,0.0,-63,-66.0,713,66.0,0,0.0"  # noqa: ERA001
+    if len(result_list) != (NumPlayer.FOUR * 2):
         logger.warning("The number of `owari` is invalid.: %s", result_list)
         return None
 
     score_list = result_list[::2]
+
+    if num_player == NumPlayer.THREE:
+        score_list.pop(3)
 
     try:
         score_numbers = [int(x) for x in score_list]
