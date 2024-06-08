@@ -213,8 +213,11 @@ def convert(
         msg = f"Unsupported game length selected: {game_length}"
         raise ValueError(msg)
 
-    length_name = "Tonpu" if game_length == GameLength.TONPU else "Hanchan"
-    logger.info("Conversion target: %s-Player, %s", num_player, length_name)
+    logger.info(
+        "Conversion target: %s-Player, %s",
+        num_player,
+        "Tonpu" if game_length == GameLength.TONPU else "Hanchan",
+    )
 
     header = _create_header(
         num_player,
