@@ -29,13 +29,14 @@ def _create_header(
     output_final_score: bool,
     output_filename: bool,
 ) -> str:
-    header = "round,num_counter_stick,num_riichi_deposit,"
-    header += ",".join(f"score_{i}" for i in range(num_player))
-    header += ",rank_class"
+    header = (
+        "round,num_counter_stick,num_riichi_deposit,"
+        + ",".join(f"score_{i}" for i in range(num_player))
+        + ",rank_class"
+    )
 
     if output_final_score:
-        header += ","
-        header += ",".join(f"final_score_{i}" for i in range(num_player))
+        header += "," + ",".join(f"final_score_{i}" for i in range(num_player))
 
     if output_filename:
         header += ",filename"
