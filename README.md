@@ -32,6 +32,27 @@ The meaning of each argument is as follows:
 |6|(Optional) Outputs final score|Enabled by specifying `-f` or `--final-score`|
 |7|(Optional) Outputs game record file name|Enabled by specifying `-n` or `--filename`|
 
+### Split annotated data into train and test subsets
+
+```sh
+rank-predictor-split annotated-data.csv training-data.csv test-data.csv
+```
+
+This command serves as a streamlined interface to the `sklearn.model_selection.train_test_split`.  
+Refer to the [scikit-learn documentation](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html) for optional arguments.
+
+The meaning of each argument is as follows:
+
+|Index|Explanation|Note|
+|-|-|-|
+|1|Path to the file containing annotated data||
+|2|Path to the file containing train a subset of annotated data||
+|3|Path to the file containing test a subset of annotated data||
+|4|(Optional) test_size|Specify with `--test_size`|
+|5|(Optional) train_size|Specify with `--train_size`|
+|6|(Optional) random_state|Specify with `-r` or `--random_state`|
+|7|(Optional) shuffle|Disabled by specifying `-f` or `--shuffle-false`|
+
 ### Training and saving a model
 
 ```sh
