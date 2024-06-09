@@ -28,11 +28,11 @@ The meaning of each argument is as follows:
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
 |3|Path to the directory where game records are stored|Only files directly under the directory are targeted|
 |4|Extension of game records|Case-sensitive|
-|5|Path to the file containing round state, score, and final rank class||
+|5|Path to the file to save the annotated data|Containing round state, score, and final rank class|
 |6|(Optional) Outputs final score|Enabled by specifying `-f` or `--final-score`|
 |7|(Optional) Outputs game record file name|Enabled by specifying `-n` or `--filename`|
 
-### Split annotated data into train and test subsets
+### Splitting the annotated data into train and test subsets
 
 ```sh
 rank-predictor-split annotated-data.csv training-data.csv test-data.csv
@@ -45,9 +45,9 @@ The meaning of each argument is as follows:
 
 |Index|Explanation|Note|
 |-|-|-|
-|1|Path to the file containing annotated data||
-|2|Path to the file containing train a subset of annotated data||
-|3|Path to the file containing test a subset of annotated data||
+|1|Path to the file containing the annotated data||
+|2|Path to the file to save a train subset of the annotated data||
+|3|Path to the file to save a test subset of the annotated data||
 |4|(Optional) test_size|Specify with `--test_size`|
 |5|(Optional) train_size|Specify with `--train_size`|
 |6|(Optional) random_state|Specify with `-r` or `--random_state`|
@@ -66,8 +66,8 @@ The meaning of each argument is as follows:
 |1|The number of players|Accepts only `4` or `3`|
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
 |3|Path to the file containing configurations for training||
-|4|Path to the file containing round state, score, and final rank class||
-|5|Path to the file where the trained model is saved||
+|4|Path to the file containing the annotated data||
+|5|Path to the file to save the trained model||
 
 ### Predicting expected final rank
 
