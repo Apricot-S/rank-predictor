@@ -4,7 +4,6 @@ from pathlib import Path
 import numpy as np
 import polars as pl
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
 
 from rank_predictor.types import GameLength, NumPlayer
 

@@ -72,6 +72,64 @@ def convert() -> int:
     return 0
 
 
+def split() -> int:
+    import rank_predictor.split
+
+    def int_or_float(arg: str) -> int | float:
+        try:
+            return int(arg)
+        except ValueError:
+            try:
+                return float(arg)
+            except ValueError:
+                msg = f"invalid int or float value: '{arg}'"
+                raise argparse.ArgumentTypeError(msg) from None
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "input_data_path",
+        type=Path,
+    )
+    parser.add_argument(
+        "train_data_path",
+        type=Path,
+    )
+    parser.add_argument(
+        "test_data_path",
+        type=Path,
+    )
+    parser.add_argument(
+        "--test_size",
+        type=int_or_float,
+    )
+    parser.add_argument(
+        "--train_size",
+        type=int_or_float,
+    )
+    parser.add_argument(
+        "-r",
+        "--random_state",
+        type=int,
+    )
+    parser.add_argument(
+        "-f",
+        "--shuffle-false",
+        action="store_true",
+    )
+    args = parser.parse_args()
+
+    rank_predictor.split.split(
+        args.input_data_path,
+        args.train_data_path,
+        args.test_data_path,
+        args.test_size,
+        args.train_size,
+        args.random_state,
+        shuffle=(not args.shuffle_false),
+    )
+    return 0
+
+
 def train() -> int:
     import rank_predictor.train
 
