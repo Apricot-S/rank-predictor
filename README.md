@@ -88,7 +88,7 @@ The meaning of each argument is as follows:
 |7|The score of the player right next to the qijia (起家の下家の点数)|\*1\*2|
 |8|The score of the player across from the qijia (起家の対面の点数)|\*1\*2|
 |9|The score of the player left next to the qijia (起家の上家の点数)|Applies only if number of players is `4` \*1\*2|
-|10|(Optional) Path to the file where the trained model is saved|If not specified, the application will use the default model that is included with the project.|
+|10|(Optional) Path to the file where the trained model is saved|Specify with `--model`. If not specified, the default model included in the project will be used.|
 
 *1: Accepts only integers greater than or equal to **0**. The total score must be **100,000** for 4-player mahjong and **105,000** for 3-player mahjong. The total score is calculated as follows:  
 **(Total Score) = (The Number of Riichi Deposits) * 1,000 + (Sum of All Players' Scores)**
