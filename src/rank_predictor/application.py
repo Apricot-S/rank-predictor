@@ -125,7 +125,68 @@ def split() -> int:
 
 
 def train() -> int:
+    import pickle
+
+    import polars as pl
+
     import rank_predictor.train
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "num_player",
+        type=int,
+        choices=(4, 3),
+    )
+    parser.add_argument(
+        "game_length",
+        choices=(GameLength.TONPU, GameLength.HANCHAN),
+    )
+    parser.add_argument(
+        "config_path",
+        type=Path,
+    )
+    parser.add_argument(
+        "training_data_path",
+        type=Path,
+    )
+    parser.add_argument(
+        "model_path",
+        type=Path,
+    )
+    args = parser.parse_args()
+
+    num_player = NumPlayer(args.num_player)
+    game_length = GameLength(args.game_length)
+    config_path: Path = args.config_path
+    training_data_path: Path = args.training_data_path
+    model_path: Path = args.model_path
+
+    if not config_path.is_file():
+        msg = f"`config_path` is not a file: {config_path}"
+        raise FileNotFoundError(msg)
+
+    if not training_data_path.is_file():
+        msg = f"`training_data_path` is not a file: {training_data_path}"
+        raise FileNotFoundError(msg)
+
+    if model_path.is_dir():
+        msg = (
+            "A directory with the same name as `model_path` exists:"
+            f" {model_path}"
+        )
+        raise FileExistsError(msg)
+
+    training_data = pl.read_csv(training_data_path)
+
+    model = rank_predictor.train.train(
+        num_player,
+        game_length,
+        args.config_path,
+        training_data,
+    )
+
+    with model_path.open("wb") as f:
+        pickle.dump(model, f)
 
     return 0
 
