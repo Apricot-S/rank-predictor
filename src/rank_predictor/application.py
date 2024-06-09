@@ -176,12 +176,13 @@ def train() -> int:
         )
         raise FileExistsError(msg)
 
+    config = rank_predictor.train.Config.from_file(config_path)
     training_data = pl.read_csv(training_data_path)
 
     model = rank_predictor.train.train(
         num_player,
         game_length,
-        args.config_path,
+        config,
         training_data,
     )
 

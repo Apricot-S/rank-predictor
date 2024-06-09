@@ -1,4 +1,7 @@
+from dataclasses import dataclass
 from logging import getLogger
+from pathlib import Path
+from typing import Self
 
 import numpy as np
 import polars as pl
@@ -9,9 +12,15 @@ from rank_predictor.types import GameLength, NumPlayer
 logger = getLogger(__name__)
 
 
+@dataclass
 class Config:
-    def __init__(self) -> None:
-        pass
+    @classmethod
+    def from_file(cls, file: Path) -> Self:
+        if not file.is_file():
+            msg = f"`file` is not a file: {file}"
+            raise FileNotFoundError(msg)
+
+        return cls()
 
 
 def train(
