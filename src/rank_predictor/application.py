@@ -30,15 +30,14 @@ def convert() -> int:
     )
     parser.add_argument(
         "game_record_dir",
-        type=str,
+        type=Path,
     )
     parser.add_argument(
         "game_record_extension",
-        type=str,
     )
     parser.add_argument(
         "annotated_data",
-        type=str,
+        type=Path,
     )
     parser.add_argument(
         "-f",
@@ -54,20 +53,15 @@ def convert() -> int:
 
     num_player = NumPlayer(args.num_player)
     game_length = GameLength(args.game_length)
-    game_record_dir = Path(args.game_record_dir)
-    game_record_extension: str = args.game_record_extension
-    annotated_data = Path(args.annotated_data)
-    output_final_score: bool = args.final_score
-    output_filename: bool = args.filename
 
     rank_predictor.convert.convert(
         num_player,
         game_length,
-        game_record_dir,
-        game_record_extension,
-        annotated_data,
-        output_final_score=output_final_score,
-        output_filename=output_filename,
+        args.game_record_dir,
+        args.game_record_extension,
+        args.annotated_data,
+        output_final_score=args.final_score,
+        output_filename=args.filename,
     )
     return 0
 
