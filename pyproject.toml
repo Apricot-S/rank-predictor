@@ -80,7 +80,7 @@ convention = "google"
 
 [[tool.mypy.overrides]]
 module = [
-    "sklearn",
+    "sklearn.*",
     "defusedxml",
 ]
 ignore_missing_imports = true
