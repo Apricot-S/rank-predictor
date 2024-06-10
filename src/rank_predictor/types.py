@@ -9,9 +9,21 @@ class NumPlayer(IntEnum):
     THREE = 3
 
 
+def validate_num_player(num_player: NumPlayer) -> None:
+    if num_player not in NumPlayer:
+        msg = f"Unsupported number of players selected: {num_player}"
+        raise ValueError(msg)
+
+
 class GameLength(StrEnum):
     TONPU = "t"
     HANCHAN = "h"
+
+
+def validate_game_length(game_length: GameLength) -> None:
+    if game_length not in GameLength:
+        msg = f"Unsupported game length selected: {game_length}"
+        raise ValueError(msg)
 
 
 def get_game_length_name(game_length: GameLength) -> str:

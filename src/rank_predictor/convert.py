@@ -11,6 +11,8 @@ from rank_predictor.types import (
     GameLength,
     NumPlayer,
     get_game_length_name,
+    validate_game_length,
+    validate_num_player,
 )
 
 logger = getLogger(__name__)
@@ -211,13 +213,8 @@ def convert(
         )
         raise FileExistsError(msg)
 
-    if num_player not in NumPlayer:
-        msg = f"Unsupported number of players selected: {num_player}"
-        raise ValueError(msg)
-
-    if game_length not in GameLength:
-        msg = f"Unsupported game length selected: {game_length}"
-        raise ValueError(msg)
+    validate_num_player(num_player)
+    validate_game_length(game_length)
 
     logger.info(
         "Conversion target: %s-Player, %s",
