@@ -6,7 +6,7 @@ from pathlib import Path
 from defusedxml import ElementTree
 
 from rank_predictor.rank import classify
-from rank_predictor.types import GameLength, NumPlayer
+from rank_predictor.types import DataName, GameLength, NumPlayer
 
 logger = getLogger(__name__)
 
@@ -30,9 +30,10 @@ def _create_header(
     output_filename: bool,
 ) -> str:
     header = (
-        "round,num_counter_stick,num_riichi_deposit,"
-        + ",".join(f"score_{i}" for i in range(num_player))
-        + ",rank_class"
+        f"{DataName.ROUND},{DataName.NUM_COUNTER_STICK},"
+        f"{DataName.NUM_RIICHI_DEPOSIT},"
+        + ",".join(f"{DataName.SCORE}_{i}" for i in range(num_player))
+        + f",{DataName.RANK_CLASS}"
     )
 
     if output_final_score:

@@ -14,6 +14,14 @@ class GameLength(StrEnum):
     HANCHAN = "h"
 
 
+class DataName(StrEnum):
+    ROUND = "round"
+    NUM_COUNTER_STICK = "num_counter_stick"
+    NUM_RIICHI_DEPOSIT = "num_riichi_deposit"
+    SCORE = "score"
+    RANK_CLASS = "rank_class"
+
+
 class Round(IntEnum):
     EAST_1 = 0
     EAST_2 = 1
