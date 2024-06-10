@@ -3,11 +3,11 @@ from logging import getLogger
 from pathlib import Path
 from typing import Self
 
-import numpy as np
 import polars as pl
 from sklearn.linear_model import LogisticRegression
 
 from rank_predictor.types import (
+    DataName,
     GameLength,
     NumPlayer,
     get_game_length_name,
@@ -34,7 +34,7 @@ def train(
     game_length: GameLength,
     config: Config,
     training_data: pl.DataFrame,
-) -> object:
+) -> LogisticRegression:
     validate_num_player(num_player)
     validate_game_length(game_length)
 
@@ -44,6 +44,25 @@ def train(
         get_game_length_name(game_length),
     )
 
-    clf = LogisticRegression()
+    feature_columns = [
+        DataName.ROUND,
+        DataName.NUM_COUNTER_STICK,
+        DataName.NUM_RIICHI_DEPOSIT,
+        *[f"{DataName.SCORE}_{i}" for i in range(num_player)],
+    ]
+    label_column = DataName.RANK_CLASS
 
-    return object()
+    required_columns = [*feature_columns, label_column]
+    columns = training_data.columns
+    missing_columns = [r for r in required_columns if r not in columns]
+    if missing_columns:
+        msg = f"Training data is missing columns: {missing_columns}"
+        raise ValueError(msg)
+
+    feature = training_data.select(feature_columns)
+    label = training_data.select(label_column)
+
+    clf = LogisticRegression()
+    clf.fit(feature, label)
+
+    return clf
