@@ -60,4 +60,6 @@ def train(
     clf = LogisticRegression()
     clf.fit(feature, label)
 
+    logger.info("Training is complete.")
+
     return clf
