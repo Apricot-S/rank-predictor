@@ -55,7 +55,7 @@ def train(
         raise ValueError(msg)
 
     feature = training_data.select(feature_columns)
-    label = training_data.select(label_column)
+    label = training_data.select(label_column).to_series()
 
     clf = LogisticRegression()
     clf.fit(feature, label)
