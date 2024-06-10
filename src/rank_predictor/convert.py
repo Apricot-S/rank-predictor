@@ -6,7 +6,12 @@ from pathlib import Path
 from defusedxml import ElementTree
 
 from rank_predictor.rank import classify
-from rank_predictor.types import DataName, GameLength, NumPlayer
+from rank_predictor.types import (
+    DataName,
+    GameLength,
+    NumPlayer,
+    get_game_length_name,
+)
 
 logger = getLogger(__name__)
 
@@ -217,7 +222,7 @@ def convert(
     logger.info(
         "Conversion target: %s-Player, %s",
         num_player,
-        "Tonpu" if game_length == GameLength.TONPU else "Hanchan",
+        get_game_length_name(game_length),
     )
 
     header = _create_header(
@@ -261,7 +266,7 @@ def convert(
             logger.info(
                 "This mjlog is not a target.: %s-Player, %s",
                 log_num_player,
-                "Tonpu" if log_game_length == GameLength.TONPU else "Hanchan",
+                get_game_length_name(log_game_length),
             )
             continue
 

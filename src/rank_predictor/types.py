@@ -14,6 +14,10 @@ class GameLength(StrEnum):
     HANCHAN = "h"
 
 
+def get_game_length_name(game_length: GameLength) -> str:
+    return "Tonpu" if game_length == GameLength.TONPU else "Hanchan"
+
+
 class DataName(StrEnum):
     ROUND = "round"
     NUM_COUNTER_STICK = "num_counter_stick"

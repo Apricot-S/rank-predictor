@@ -7,7 +7,7 @@ import numpy as np
 import polars as pl
 from sklearn.linear_model import LogisticRegression
 
-from rank_predictor.types import GameLength, NumPlayer
+from rank_predictor.types import GameLength, NumPlayer, get_game_length_name
 
 logger = getLogger(__name__)
 
@@ -40,7 +40,7 @@ def train(
     logger.info(
         "Training target: %s-Player, %s",
         num_player,
-        "Tonpu" if game_length == GameLength.TONPU else "Hanchan",
+        get_game_length_name(game_length),
     )
 
     clf = LogisticRegression()
