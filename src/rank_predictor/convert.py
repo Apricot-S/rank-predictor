@@ -11,8 +11,6 @@ from rank_predictor.types import (
     GameLength,
     NumPlayer,
     get_game_length_name,
-    validate_game_length,
-    validate_num_player,
 )
 
 logger = getLogger(__name__)
@@ -212,9 +210,6 @@ def convert(
             f" {annotated_data}"
         )
         raise FileExistsError(msg)
-
-    validate_num_player(num_player)
-    validate_game_length(game_length)
 
     logger.info(
         "Conversion target: %s-Player, %s",
