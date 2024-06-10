@@ -35,6 +35,10 @@ class Round(IntEnum):
     SOUTH_2 = 5
     SOUTH_3 = 6
     SOUTH_4 = 7
+    WEST_1 = 8
+    WEST_2 = 9
+    WEST_3 = 10
+    WEST_4 = 11
 
 
 Scores4: TypeAlias = tuple[int, int, int, int]
