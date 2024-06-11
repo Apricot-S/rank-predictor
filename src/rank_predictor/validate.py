@@ -29,14 +29,11 @@ def validate_annotated_data(
     columns = annotated_data.columns
     missing_columns = [r for r in required_columns if r not in columns]
     if missing_columns:
-        msg = f"Training data is missing columns: {missing_columns}"
+        msg = f"The data is missing columns: {missing_columns}"
         raise ValueError(msg)
 
     if (num_player == NumPlayer.THREE) and (f"{DataName.SCORE}_3" in columns):
-        msg = (
-            "The training target is 3-player,"
-            f" but the data contains `{DataName.SCORE}_3`."
-        )
+        msg = f"The data for 3-player contains `{DataName.SCORE}_3`."
         raise ValueError(msg)
 
     invalid_round = (
@@ -52,8 +49,8 @@ def validate_annotated_data(
     if num_invalid_round > 0:
         round_name = "West" if game_length == GameLength.TONPU else "North"
         msg = (
-            f"The training target is {get_game_length_name(game_length)},"
-            f" but the data contains rounds after {round_name}-1."
+            f"The data for {get_game_length_name(game_length)} contains rounds"
+            f" after {round_name}-1."
         )
         raise ValueError(msg)
 
