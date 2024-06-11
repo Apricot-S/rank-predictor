@@ -37,6 +37,11 @@ def validate_annotated_data(
         msg = f"The data for 3-player contains `{DataName.SCORE}_3`."
         raise ValueError(msg)
 
+    for name in required_columns:
+        if annotated_data.filter(pl.col(name) < 0).shape[0] > 0:
+            msg = f"`{name}` column contains negative values."
+            raise ValueError(msg)
+
     invalid_round = (
         Round.WEST_1 if game_length == GameLength.TONPU else (Round.WEST_4 + 1)
     )
@@ -50,11 +55,6 @@ def validate_annotated_data(
             f" after {round_name}-1."
         )
         raise ValueError(msg)
-
-    for name in required_columns:
-        if annotated_data.filter(pl.col(name) < 0).shape[0] > 0:
-            msg = f"`{name}` column contains negative values."
-            raise ValueError(msg)
 
     expected_total_score = (
         TOTAL_SCORE_4 if num_player == NumPlayer.FOUR else TOTAL_SCORE_3
