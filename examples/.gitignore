@@ -1,5 +1,3 @@
 *
 !.gitignore
-!annotated-data.example.csv
-!training-data.example.csv
-!test-data.example.csv
+!*.example.*
