@@ -39,13 +39,9 @@ def validate_annotated_data(
     invalid_round = (
         Round.WEST_1 if game_length == GameLength.TONPU else (Round.WEST_4 + 1)
     )
-    num_invalid_round = (
-        annotated_data.lazy()
-        .filter(pl.col(DataName.ROUND) >= invalid_round)
-        .select(pl.len())
-        .collect()
-        .item()
-    )
+    num_invalid_round = annotated_data.filter(
+        pl.col(DataName.ROUND) >= invalid_round,
+    ).shape[0]
     if num_invalid_round > 0:
         round_name = "West" if game_length == GameLength.TONPU else "North"
         msg = (
