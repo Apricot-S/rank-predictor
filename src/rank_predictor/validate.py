@@ -92,13 +92,13 @@ def validate_annotated_data(
         raise ValueError(msg)
 
 
-def validate_input_score_4(score: int) -> None:
+def validate_score_4(score: int) -> None:
     if score < 0 or score > TOTAL_SCORE_4:
         msg = f"Invalid score is input. : {score}"
         raise ValueError(msg)
 
 
-def validate_input_score_3(score: int) -> None:
+def validate_score_3(score: int) -> None:
     if score < 0 or score > TOTAL_SCORE_3:
         msg = f"Invalid score is input. : {score}"
         raise ValueError(msg)
@@ -108,9 +108,9 @@ def validate_input_score(score: int, num_player: NumPlayer) -> None:
     score = score // 100
     match num_player:
         case NumPlayer.FOUR:
-            validate_input_score_4(score)
+            validate_score_4(score)
         case NumPlayer.THREE:
-            validate_input_score_3(score)
+            validate_score_3(score)
         case unreachable:
             assert_never(unreachable)
 
