@@ -39,17 +39,14 @@ def validate_annotated_data(
         raise ValueError(msg)
 
     for name in required_columns:
-        if not annotated_data.select(pl.col(name)).to_series().is_integer():
+        column_data = annotated_data.select(pl.col(name)).to_series()
+        if not column_data.is_integer():
             msg = f"`{name}` column datatype is not an integer."
             raise ValueError(msg)
-
-    for name in required_columns:
-        if annotated_data.filter(pl.col(name).is_null()).shape[0] > 0:
+        if column_data.is_null().any():
             msg = f"`{name}` column contains null values."
             raise ValueError(msg)
-
-    for name in required_columns:
-        if annotated_data.filter(pl.col(name) < 0).shape[0] > 0:
+        if (column_data < 0).any():
             msg = f"`{name}` column contains negative values."
             raise ValueError(msg)
 
