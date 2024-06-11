@@ -2,6 +2,7 @@ from typing import Final, assert_never
 
 import polars as pl
 
+from rank_predictor.rank import RANK_CLASS_3, RANK_CLASS_4
 from rank_predictor.types import (
     DataName,
     GameLength,
@@ -72,6 +73,21 @@ def validate_annotated_data(
             "The data contains invalid scores. The sum of scores should be"
             f" {expected_total_score}."
         )
+        raise ValueError(msg)
+
+    num_rank_class = (
+        len(RANK_CLASS_4)
+        if num_player == NumPlayer.FOUR
+        else len(RANK_CLASS_3)
+    )
+    contains_invalid_rank_class = (
+        annotated_data.filter(
+            pl.col(DataName.RANK_CLASS) >= num_rank_class,
+        ).shape[0]
+        > 0
+    )
+    if contains_invalid_rank_class:
+        msg = f"`{DataName.RANK_CLASS}` column contains invalid values."
         raise ValueError(msg)
 
 
