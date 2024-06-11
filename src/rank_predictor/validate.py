@@ -53,10 +53,10 @@ def validate_annotated_data(
     invalid_round = (
         Round.WEST_1 if game_length == GameLength.TONPU else (Round.WEST_4 + 1)
     )
-    num_invalid_round = annotated_data.filter(
+    contains_invalid_round = not annotated_data.filter(
         pl.col(DataName.ROUND) >= invalid_round,
-    ).shape[0]
-    if num_invalid_round > 0:
+    ).is_empty()
+    if contains_invalid_round:
         round_name = "West" if game_length == GameLength.TONPU else "North"
         msg = (
             f"The data for {get_game_length_name(game_length)} contains rounds"
@@ -88,12 +88,9 @@ def validate_annotated_data(
         if num_player == NumPlayer.FOUR
         else len(RANK_CLASS_3)
     )
-    contains_invalid_rank_class = (
-        annotated_data.filter(
-            pl.col(DataName.RANK_CLASS) >= num_rank_class,
-        ).shape[0]
-        > 0
-    )
+    contains_invalid_rank_class = not annotated_data.filter(
+        pl.col(DataName.RANK_CLASS) >= num_rank_class,
+    ).is_empty()
     if contains_invalid_rank_class:
         msg = f"`{DataName.RANK_CLASS}` column contains invalid values."
         raise ValueError(msg)
