@@ -126,6 +126,7 @@ def split() -> int:
 
 def train() -> int:
     import pickle
+    import tomllib
 
     import polars as pl
 
@@ -176,13 +177,14 @@ def train() -> int:
         )
         raise FileExistsError(msg)
 
-    config = rank_predictor.train.Config.from_file(config_path)
+    with config_path.open("rb") as fp:
+        hyper_parameter = tomllib.load(fp)["hyper-parameter"]
     training_data = pl.read_csv(training_data_path)
 
     model = rank_predictor.train.train(
         num_player,
         game_length,
-        config,
+        hyper_parameter,
         training_data,
     )
 
