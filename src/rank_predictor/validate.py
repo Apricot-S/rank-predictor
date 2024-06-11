@@ -27,6 +27,7 @@ def validate_annotated_data(
         *[f"{DataName.SCORE}_{i}" for i in range(num_player)],
         DataName.RANK_CLASS,
     ]
+
     columns = annotated_data.columns
     missing_columns = [r for r in required_columns if r not in columns]
     if missing_columns:
