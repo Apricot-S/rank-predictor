@@ -77,6 +77,25 @@ def validate_annotated_data(
     for i in range(num_player):
         validate_no_negative_values(f"{DataName.SCORE}_{i}")
 
+    expected_total_score = (
+        TOTAL_SCORE_4 if num_player == NumPlayer.FOUR else TOTAL_SCORE_3
+    )
+    contains_invalid_score = (
+        (
+            annotated_data.select(
+                *[pl.col(f"{DataName.SCORE}_{i}") for i in range(num_player)],
+                pl.col(DataName.NUM_RIICHI_DEPOSIT) * 10,
+            ).sum_horizontal()
+        )
+        != expected_total_score
+    ).any()
+    if contains_invalid_score:
+        msg = (
+            "The data contains invalid scores. The sum of scores should be"
+            f" {expected_total_score}."
+        )
+        raise ValueError(msg)
+
 
 def validate_input_score_4(score: int) -> None:
     if score < 0 or score > TOTAL_SCORE_4:
