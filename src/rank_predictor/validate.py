@@ -19,15 +19,13 @@ def validate_annotated_data(
     game_length: GameLength,
     annotated_data: pl.DataFrame,
 ) -> None:
-    feature_columns = [
+    required_columns = [
         DataName.ROUND,
         DataName.NUM_COUNTER_STICK,
         DataName.NUM_RIICHI_DEPOSIT,
         *[f"{DataName.SCORE}_{i}" for i in range(num_player)],
+        DataName.RANK_CLASS,
     ]
-    label_column = DataName.RANK_CLASS
-
-    required_columns = [*feature_columns, label_column]
     columns = annotated_data.columns
     missing_columns = [r for r in required_columns if r not in columns]
     if missing_columns:
