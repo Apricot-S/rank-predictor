@@ -54,23 +54,10 @@ def validate_annotated_data(
         )
         raise ValueError(msg)
 
-    def validate_no_negative_values(column: str) -> None:
-        negative_count = (
-            annotated_data.lazy()
-            .filter(pl.col(column) < 0)
-            .select(pl.len())
-            .collect()
-            .item()
-        )
-        if negative_count > 0:
-            msg = f"`{column}` data contains negative values."
+    for name in required_columns:
+        if annotated_data.filter(pl.col(name) < 0).shape[0] > 0:
+            msg = f"`{name}` data contains negative values."
             raise ValueError(msg)
-
-    validate_no_negative_values(DataName.ROUND)
-    validate_no_negative_values(DataName.NUM_COUNTER_STICK)
-    validate_no_negative_values(DataName.NUM_RIICHI_DEPOSIT)
-    for i in range(num_player):
-        validate_no_negative_values(f"{DataName.SCORE}_{i}")
 
     expected_total_score = (
         TOTAL_SCORE_4 if num_player == NumPlayer.FOUR else TOTAL_SCORE_3
