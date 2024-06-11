@@ -56,7 +56,7 @@ def validate_annotated_data(
 
     for name in required_columns:
         if annotated_data.filter(pl.col(name) < 0).shape[0] > 0:
-            msg = f"`{name}` data contains negative values."
+            msg = f"`{name}` column contains negative values."
             raise ValueError(msg)
 
     expected_total_score = (
