@@ -39,6 +39,11 @@ def validate_annotated_data(
         raise ValueError(msg)
 
     for name in required_columns:
+        if annotated_data.filter(pl.col(name).is_null()).shape[0] > 0:
+            msg = f"`{name}` column contains null values."
+            raise ValueError(msg)
+
+    for name in required_columns:
         if annotated_data.filter(pl.col(name) < 0).shape[0] > 0:
             msg = f"`{name}` column contains negative values."
             raise ValueError(msg)
