@@ -72,7 +72,7 @@ The meaning of each argument is as follows:
 ### Predicting expected final rank
 
 ```sh
-rank-predictor 4 h 0 0 0 25000 25000 25000 25000 --model model.pickle
+rank-predictor 4 h model.pickle 0 0 0 25000 25000 25000 25000
 ```
 
 The meaning of each argument is as follows:
@@ -81,19 +81,19 @@ The meaning of each argument is as follows:
 |-|-|-|
 |1|The number of players|Accepts only `4` or `3`|
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
-|3|The number of round|East 1 (東1局) is `0`, South 1 (南1局) is `4`. Accepts only from `0` to `7`|
-|4|The number of counter sticks (本場)|Accepts only from `0` to `99`|
-|5|The number of riichi deposits (供託本数)|\*1|
-|6|The score of the qijia (dealer at the start of a game) (起家の点数)|\*1\*2|
-|7|The score of the player right next to the qijia (起家の下家の点数)|\*1\*2|
-|8|The score of the player across from the qijia (起家の対面の点数)|\*1\*2|
-|9|The score of the player left next to the qijia (起家の上家の点数)|Applies only if number of players is `4` \*1\*2|
-|10|(Optional) Path to the file where the trained model is saved|Specify with `--model`. If not specified, the default model included in the project will be used.|
+|3|Path to the file where the trained model is saved||
+|4|The number of round|East 1 (東1局) is `0`, South 1 (南1局) is `4`, West 1 (西1局) is `8`. Accepts only from `0` to `11`|
+|5|The number of counter sticks (本場)||
+|6|The number of riichi deposits (供託本数)|\*1|
+|7|The score of the qijia (dealer at the start of a game) (起家の点数)|\*1\*2|
+|8|The score of the player right next to the qijia (起家の下家の点数)|\*1\*2|
+|9|The score of the player across from the qijia (起家の対面の点数)|\*1\*2|
+|10|The score of the player left next to the qijia (起家の上家の点数)|Applies only if number of players is `4` \*1\*2|
 
 *1: Accepts only integers greater than or equal to **0**. The total score must be **100,000** for 4-player mahjong and **105,000** for 3-player mahjong. The total score is calculated as follows:  
 **(Total Score) = (The Number of Riichi Deposits) * 1,000 + (Sum of All Players' Scores)**
 
-*2: Only the part of the score that is 100 or greater is considered. For example, an input of `25199` is interpreted as `25100`.
+*2: The last two digits of the score must be 0.
 
 ## License
 
