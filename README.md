@@ -75,6 +75,22 @@ The meaning of each argument is as follows:
 rank-predictor 4 h model.pickle 0 0 0 25000 25000 25000 25000
 ```
 
+Output:
+
+```text
+Rank Probability
+player_0: [0.30085029 0.26454441 0.20796936 0.22663595]
+player_1: [0.2407986  0.26629562 0.20320842 0.28969736]
+player_2: [0.21027113 0.27973354 0.32559989 0.18439545]
+player_3: [0.24807999 0.18942643 0.26322234 0.29927124]
+
+Average Rank
+player_0: 2.3603909686402478
+player_1: 2.541804539120996
+player_2: 2.4841196522021267
+player_3: 2.61368484003663
+```
+
 The meaning of each argument is as follows:
 
 |Index|Explanation|Note|
