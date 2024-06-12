@@ -56,7 +56,7 @@ The meaning of each argument is as follows:
 ### Training and saving a model
 
 ```sh
-rank-predictor-train 4 h config.toml training-data.csv model.pickle
+rank-predictor-train 4 h training-data.csv config.toml model.pickle
 ```
 
 The meaning of each argument is as follows:
@@ -65,8 +65,8 @@ The meaning of each argument is as follows:
 |-|-|-|
 |1|The number of players|Accepts only `4` or `3`|
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
-|3|Path to the file containing configurations for training||
-|4|Path to the file containing the annotated data||
+|3|Path to the file containing the annotated data||
+|4|Path to the file containing configurations for training||
 |5|Path to the file to save the trained model||
 
 ### Predicting expected final rank

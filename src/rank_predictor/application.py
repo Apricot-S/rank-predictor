@@ -143,11 +143,11 @@ def train() -> int:
         choices=(GameLength.TONPU, GameLength.HANCHAN),
     )
     parser.add_argument(
-        "config_path",
+        "training_data_path",
         type=Path,
     )
     parser.add_argument(
-        "training_data_path",
+        "config_path",
         type=Path,
     )
     parser.add_argument(
@@ -158,16 +158,15 @@ def train() -> int:
 
     num_player = NumPlayer(args.num_player)
     game_length = GameLength(args.game_length)
-    config_path: Path = args.config_path
     training_data_path: Path = args.training_data_path
+    config_path: Path = args.config_path
     model_path: Path = args.model_path
-
-    if not config_path.is_file():
-        msg = f"`config_path` is not a file: {config_path}"
-        raise FileNotFoundError(msg)
 
     if not training_data_path.is_file():
         msg = f"`training_data_path` is not a file: {training_data_path}"
+        raise FileNotFoundError(msg)
+    if not config_path.is_file():
+        msg = f"`config_path` is not a file: {config_path}"
         raise FileNotFoundError(msg)
 
     if model_path.is_dir():
@@ -184,8 +183,8 @@ def train() -> int:
     model = rank_predictor.train.train(
         num_player,
         game_length,
-        hyper_parameter,
         training_data,
+        hyper_parameter,
     )
 
     with model_path.open("wb") as f:

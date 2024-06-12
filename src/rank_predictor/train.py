@@ -18,8 +18,8 @@ logger = getLogger(__name__)
 def train(
     num_player: NumPlayer,
     game_length: GameLength,
-    hyper_parameter: dict[str, Any],
     training_data: pl.DataFrame,
+    hyper_parameter: dict[str, Any],
 ) -> LogisticRegression:
     logger.info(
         "Training target: %s-Player, %s",
