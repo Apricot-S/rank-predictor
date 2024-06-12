@@ -4,6 +4,25 @@ from typing import Final
 
 from rank_predictor.types import NumPlayer
 
+RANK_PERMUTATION_4: Final = tuple(permutations(range(NumPlayer.FOUR)))
+RANK_PERMUTATION_3: Final = tuple(permutations(range(NumPlayer.THREE)))
+
+
+def get_indexes(
+    num_player: NumPlayer,
+    player: int,
+    rank: int,
+) -> tuple[int, ...]:
+    rank_permutation = (
+        RANK_PERMUTATION_4
+        if num_player == NumPlayer.FOUR
+        else RANK_PERMUTATION_3
+    )
+    return tuple(
+        i for i, t in enumerate(rank_permutation) if t[rank] == player
+    )
+
+
 RANK_CLASS_4: Final = {
     "".join(map(str, p)): i
     for i, p in enumerate(permutations(range(NumPlayer.FOUR)))

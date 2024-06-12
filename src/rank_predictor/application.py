@@ -274,12 +274,19 @@ def predict() -> int:
 
     score = [s // 100 for s in input_score]
 
-    probability = rank_predictor.predict.predict_proba(
+    proba = rank_predictor.predict.predict_proba(
         model,
         round_,
         num_counter_stick,
         num_riichi_deposit,
         score,
+    )
+    player_rank_proba = rank_predictor.predict.calculate_player_rank_proba(
+        num_player,
+        proba,
+    )
+    average_ranks = rank_predictor.predict.calculate_average_rank(
+        player_rank_proba,
     )
 
     return 0
