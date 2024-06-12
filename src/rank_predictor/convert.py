@@ -10,6 +10,7 @@ from rank_predictor.types import (
     DataName,
     GameLength,
     NumPlayer,
+    Round,
     get_game_length_name,
 )
 
@@ -81,7 +82,7 @@ def _parse_seed(seed: str) -> _RoundState | None:
         return None
 
     round_ = seed_numbers[0]
-    if round_ < 0 or round_ > 11:  # noqa: PLR2004
+    if round_ < Round.EAST_1 or round_ > Round.WEST_4:
         logger.warning("The number of round is invalid.: %s", round_)
         return None
 
