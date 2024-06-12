@@ -248,13 +248,7 @@ def predict() -> int:
             f" {num_counter_stick}"
         )
         raise ValueError(msg)
-    if num_riichi_deposit < 0:
-        msg = (
-            "`num_riichi_deposit` must be greater than or equal to 0.:"
-            f" {num_riichi_deposit}"
-        )
-        raise ValueError(msg)
-    validate_input_scores(score, num_player)
+    validate_input_scores(num_riichi_deposit, score, num_player)
 
     if not model_path.is_file():
         msg = f"`model_path` is not a file: {model_path}"

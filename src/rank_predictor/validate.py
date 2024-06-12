@@ -141,16 +141,27 @@ def validate_total_score(total_score: int, num_player: NumPlayer) -> None:
             assert_never(unreachable)
 
 
-def validate_scores(scores: Sequence[int], num_player: NumPlayer) -> None:
+def validate_scores(
+    num_riichi_deposit: int,
+    scores: Sequence[int],
+    num_player: NumPlayer,
+) -> None:
+    if num_riichi_deposit < 0:
+        msg = (
+            "The number of riichi deposit must be greater than or equal to 0.:"
+            f" {num_riichi_deposit}"
+        )
+        raise ValueError(msg)
     if len(scores) != num_player:
         msg = "The number of the scores does not match the `num_player`"
         raise ValueError(msg)
     for score in scores:
         validate_score(score, num_player)
-    validate_total_score(sum(scores), num_player)
+    validate_total_score(num_riichi_deposit * 10 + sum(scores), num_player)
 
 
 def validate_input_scores(
+    num_riichi_deposit: int,
     input_scores: Sequence[int],
     num_player: NumPlayer,
 ) -> None:
@@ -161,7 +172,7 @@ def validate_input_scores(
             msg = f"The last two digits of score must be 0.: {input_score}"
             raise ValueError(msg)
         scores.append(score)
-    validate_scores(scores, num_player)
+    validate_scores(num_riichi_deposit, scores, num_player)
 
 
 def validate_round(round_: Round, game_length: GameLength) -> None:
