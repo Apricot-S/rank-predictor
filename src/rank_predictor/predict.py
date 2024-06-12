@@ -37,7 +37,7 @@ def calculate_player_rank_proba(
     for player in range(num_player):
         for rank in range(num_player):
             indexes = get_indexes(num_player, player, rank)
-            player_rank_proba[player][rank] += sum(proba[i] for i in indexes)
+            player_rank_proba[player, rank] += sum(proba[i] for i in indexes)
     return player_rank_proba
 
 
