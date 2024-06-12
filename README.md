@@ -2,8 +2,6 @@
 
 A tool for predict expected final rank in Japanese mahjong.
 
-Reference (Broken Link): <http://critter.sakura.ne.jp/jun_keisan_setumei.html>
-
 ## Installation
 
 We need Python (we require at least 3.12).
