@@ -96,6 +96,24 @@ def validate_annotated_data(
         msg = f"`{DataName.RANK_CLASS}` column contains invalid values."
         raise ValueError(msg)
 
+    expected_rank_classes = pl.LazyFrame(
+        {DataName.RANK_CLASS: list(range(num_rank_class))},
+    )
+    unique_rank_classes_from_data = (
+        annotated_data.lazy().select(pl.col(DataName.RANK_CLASS)).unique()
+    )
+    missing_rank_class = expected_rank_classes.join(
+        unique_rank_classes_from_data,
+        on=DataName.RANK_CLASS,
+        how="anti",
+    ).collect()
+    if not missing_rank_class.is_empty():
+        msg = (
+            f"`{DataName.RANK_CLASS}` column does not contain"
+            f" {missing_rank_class.to_series().to_list()}."
+        )
+        raise ValueError(msg)
+
 
 def validate_score_4(score: int) -> None:
     if score < 0 or score > TOTAL_SCORE_4:
