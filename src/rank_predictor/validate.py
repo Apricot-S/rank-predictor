@@ -186,9 +186,3 @@ def validate_round(round_: Round, game_length: GameLength) -> None:
             f" {round_name}-1 do not exist."
         )
         raise ValueError(msg)
-
-
-def validate_input_probability(probability: float) -> None:
-    if probability < 0.0 or probability > 1.0:
-        msg = f"Invalid probability is input.: {probability}"
-        raise ValueError(msg)
