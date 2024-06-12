@@ -239,7 +239,7 @@ def predict() -> int:
     round_ = Round(args.round)
     num_counter_stick: int = args.num_counter_stick
     num_riichi_deposit: int = args.num_riichi_deposit
-    score: list[int] = args.score
+    input_score: list[int] = args.score
 
     validate_round(round_, game_length)
     if num_counter_stick < 0:
@@ -248,7 +248,7 @@ def predict() -> int:
             f" {num_counter_stick}"
         )
         raise ValueError(msg)
-    validate_input_scores(num_riichi_deposit, score, num_player)
+    validate_input_scores(num_riichi_deposit, input_score, num_player)
 
     if not model_path.is_file():
         msg = f"`model_path` is not a file: {model_path}"
@@ -272,14 +272,14 @@ def predict() -> int:
         )
         raise ValueError(msg)
 
-    rank_predictor.predict.predict_proba(
-        num_player,
-        game_length,
+    score = [s // 100 for s in input_score]
+
+    probability = rank_predictor.predict.predict_proba(
+        model,
         round_,
         num_counter_stick,
         num_riichi_deposit,
         score,
-        model,
     )
 
     return 0
