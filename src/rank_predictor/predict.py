@@ -1,25 +1,22 @@
-import pickle
-from pathlib import Path
+from collections.abc import Sequence
 
-import polars as pl
-
+from rank_predictor.model import Model
 from rank_predictor.types import (
     GameLength,
     NumPlayer,
     ProbabilityMatrix,
     Round,
-    Scores,
 )
 
 
-def predict(
+def predict_proba(
     num_player: NumPlayer,
     game_length: GameLength,
     round: Round,
     num_counter_stick: int,
     num_riichi_deposit: int,
-    score: Scores,
-    model: Path,
+    score: Sequence[int],
+    model: Model,
 ) -> ProbabilityMatrix:
     return (
         (0.25, 0.25, 0.25, 0.25),

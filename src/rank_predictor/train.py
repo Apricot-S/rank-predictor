@@ -4,6 +4,7 @@ from typing import Any
 import polars as pl
 from sklearn.linear_model import LogisticRegression
 
+from rank_predictor.model import Model
 from rank_predictor.types import (
     DataName,
     GameLength,
@@ -19,8 +20,8 @@ def train(
     num_player: NumPlayer,
     game_length: GameLength,
     training_data: pl.DataFrame,
-    hyper_parameter: dict[str, Any],
-) -> LogisticRegression:
+    hyper_parameter: dict[str, Any] | None,
+) -> Model:
     logger.info(
         "Training target: %s-Player, %s",
         num_player,
@@ -39,9 +40,12 @@ def train(
     feature = training_data.select(feature_columns)
     label = training_data.select(label_column).to_series()
 
+    if hyper_parameter is None:
+        hyper_parameter = {}
+
     clf = LogisticRegression(**hyper_parameter)
     clf.fit(feature, label)
 
     logger.info("Training is complete.")
 
-    return clf
+    return Model(num_player, game_length, clf)

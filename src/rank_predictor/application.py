@@ -2,7 +2,7 @@ import argparse
 from logging import INFO, Formatter, StreamHandler, basicConfig
 from pathlib import Path
 
-from rank_predictor.types import GameLength, NumPlayer
+from rank_predictor.types import GameLength, NumPlayer, Round
 
 LOG_LEVEL = INFO
 
@@ -197,6 +197,7 @@ def predict() -> int:
     import pickle
 
     import rank_predictor.predict
+    from rank_predictor.model import Model
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -225,7 +226,7 @@ def predict() -> int:
         type=int,
     )
     parser.add_argument(
-        "scores",
+        "score",
         type=int,
         nargs="*",
     )
@@ -234,16 +235,19 @@ def predict() -> int:
     num_player = NumPlayer(args.num_player)
     game_length = GameLength(args.game_length)
     model_path: Path = args.model_path
-    round_: int = args.round
+    round_ = Round(args.round)
     num_counter_stick: int = args.num_counter_stick
     num_riichi_deposit: int = args.num_riichi_deposit
-    scores: list[int] = args.scores
+    score: list[int] = args.score
 
     if num_counter_stick < 0:
         msg = f"`Invalid num_counter_stick`: {num_counter_stick}"
         raise ValueError(msg)
     if num_riichi_deposit < 0:
         msg = f"`Invalid num_riichi_deposit`: {num_riichi_deposit}"
+        raise ValueError(msg)
+    if len(score) != num_player:
+        msg = "The number of the score does not match the `num_player`"
         raise ValueError(msg)
 
     if not model_path.is_file():
@@ -252,5 +256,30 @@ def predict() -> int:
 
     with model_path.open("rb") as file:
         model = pickle.load(file)  # noqa: S301
+    if not isinstance(model, Model):
+        msg = "The loaded object is not an instance of `Model`."
+        raise TypeError(msg)
+    if model.num_player != num_player:
+        msg = (
+            "The `num_player` of the model does not match the provided"
+            " argument."
+        )
+        raise ValueError(msg)
+    if model.game_length != game_length:
+        msg = (
+            "The `game_length` of the model does not match the provided"
+            " argument."
+        )
+        raise ValueError(msg)
+
+    rank_predictor.predict.predict_proba(
+        num_player,
+        game_length,
+        round_,
+        num_counter_stick,
+        num_riichi_deposit,
+        score,
+        model,
+    )
 
     return 0
