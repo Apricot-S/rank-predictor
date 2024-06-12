@@ -195,6 +195,63 @@ def train() -> int:
 
 
 def predict() -> int:
+    import pickle
+
     import rank_predictor.predict
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "num_player",
+        type=int,
+        choices=(4, 3),
+    )
+    parser.add_argument(
+        "game_length",
+        choices=(GameLength.TONPU, GameLength.HANCHAN),
+    )
+    parser.add_argument(
+        "model_path",
+        type=Path,
+    )
+    parser.add_argument(
+        "round",
+        type=int,
+    )
+    parser.add_argument(
+        "num_counter_stick",
+        type=int,
+    )
+    parser.add_argument(
+        "num_riichi_deposit",
+        type=int,
+    )
+    parser.add_argument(
+        "scores",
+        type=int,
+        nargs="*",
+    )
+    args = parser.parse_args()
+
+    num_player = NumPlayer(args.num_player)
+    game_length = GameLength(args.game_length)
+    model_path: Path = args.model_path
+    round_: int = args.round
+    num_counter_stick: int = args.num_counter_stick
+    num_riichi_deposit: int = args.num_riichi_deposit
+    scores: list[int] = args.scores
+
+    if num_counter_stick < 0:
+        msg = f"`Invalid num_counter_stick`: {num_counter_stick}"
+        raise ValueError(msg)
+    if num_riichi_deposit < 0:
+        msg = f"`Invalid num_riichi_deposit`: {num_riichi_deposit}"
+        raise ValueError(msg)
+
+    if not model_path.is_file():
+        msg = f"`model_path` is not a file: {model_path}"
+        raise FileNotFoundError(msg)
+
+    with model_path.open("rb") as file:
+        model = pickle.load(file)  # noqa: S301
 
     return 0
