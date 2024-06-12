@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from itertools import permutations
 from typing import Final
 
@@ -13,7 +14,7 @@ RANK_CLASS_3: Final = {
 }
 
 
-def classify(scores: list[int]) -> int:
+def classify(scores: Sequence[int]) -> int:
     num_player = len(scores)
     if num_player not in NumPlayer:
         msg = f"The number of scores is invalid.: {num_player}"
