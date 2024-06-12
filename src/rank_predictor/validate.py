@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from typing import Final, assert_never
 
 import polars as pl
@@ -98,18 +99,17 @@ def validate_annotated_data(
 
 def validate_score_4(score: int) -> None:
     if score < 0 or score > TOTAL_SCORE_4:
-        msg = f"Invalid score is input. : {score}"
+        msg = f"The score for 4-player is incorrect.: {score}"
         raise ValueError(msg)
 
 
 def validate_score_3(score: int) -> None:
     if score < 0 or score > TOTAL_SCORE_3:
-        msg = f"Invalid score is input. : {score}"
+        msg = f"The score for 3-player is incorrect.: {score}"
         raise ValueError(msg)
 
 
-def validate_input_score(score: int, num_player: NumPlayer) -> None:
-    score = score // 100
+def validate_score(score: int, num_player: NumPlayer) -> None:
     match num_player:
         case NumPlayer.FOUR:
             validate_score_4(score)
@@ -119,7 +119,52 @@ def validate_input_score(score: int, num_player: NumPlayer) -> None:
             assert_never(unreachable)
 
 
+def validate_total_score_4(total_score: int) -> None:
+    if total_score != TOTAL_SCORE_4:
+        msg = f"The total score of 4-player is incorrect.: {total_score}"
+        raise ValueError(msg)
+
+
+def validate_total_score_3(total_score: int) -> None:
+    if total_score != TOTAL_SCORE_3:
+        msg = f"The total score of 3-player is incorrect.: {total_score}"
+        raise ValueError(msg)
+
+
+def validate_total_score(total_score: int, num_player: NumPlayer) -> None:
+    match num_player:
+        case NumPlayer.FOUR:
+            validate_total_score_4(total_score)
+        case NumPlayer.THREE:
+            validate_total_score_3(total_score)
+        case unreachable:
+            assert_never(unreachable)
+
+
+def validate_scores(scores: Sequence[int], num_player: NumPlayer) -> None:
+    if len(scores) != num_player:
+        msg = "The number of the scores does not match the `num_player`"
+        raise ValueError(msg)
+    for score in scores:
+        validate_score(score, num_player)
+    validate_total_score(sum(scores), num_player)
+
+
+def validate_input_scores(
+    input_scores: Sequence[int],
+    num_player: NumPlayer,
+) -> None:
+    scores = []
+    for input_score in input_scores:
+        score, mod = divmod(input_score, 100)
+        if mod != 0:
+            msg = f"The last two digits of score must be 0.: {input_score}"
+            raise ValueError(msg)
+        scores.append(score)
+    validate_scores(scores, num_player)
+
+
 def validate_input_probability(probability: float) -> None:
     if probability < 0.0 or probability > 1.0:
-        msg = f"Invalid probability is input. : {probability}"
+        msg = f"Invalid probability is input.: {probability}"
         raise ValueError(msg)

@@ -198,6 +198,7 @@ def predict() -> int:
 
     import rank_predictor.predict
     from rank_predictor.model import Model
+    from rank_predictor.validate import validate_input_scores
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -241,14 +242,18 @@ def predict() -> int:
     score: list[int] = args.score
 
     if num_counter_stick < 0:
-        msg = f"`Invalid num_counter_stick`: {num_counter_stick}"
+        msg = (
+            "`num_counter_stick` must be greater than or equal to 0.:"
+            f" {num_counter_stick}"
+        )
         raise ValueError(msg)
     if num_riichi_deposit < 0:
-        msg = f"`Invalid num_riichi_deposit`: {num_riichi_deposit}"
+        msg = (
+            "`num_riichi_deposit` must be greater than or equal to 0.:"
+            f" {num_riichi_deposit}"
+        )
         raise ValueError(msg)
-    if len(score) != num_player:
-        msg = "The number of the score does not match the `num_player`"
-        raise ValueError(msg)
+    validate_input_scores(score, num_player)
 
     if not model_path.is_file():
         msg = f"`model_path` is not a file: {model_path}"
@@ -262,13 +267,13 @@ def predict() -> int:
     if model.num_player != num_player:
         msg = (
             "The `num_player` of the model does not match the provided"
-            " argument."
+            f" argument. model: {model.num_player}, argument: {num_player}"
         )
         raise ValueError(msg)
     if model.game_length != game_length:
         msg = (
             "The `game_length` of the model does not match the provided"
-            " argument."
+            f" argument. model: {model.game_length}, argument: {game_length}"
         )
         raise ValueError(msg)
 
