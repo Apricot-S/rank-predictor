@@ -198,7 +198,7 @@ def predict() -> int:
 
     import rank_predictor.predict
     from rank_predictor.model import Model
-    from rank_predictor.validate import validate_input_scores
+    from rank_predictor.validate import validate_input_scores, validate_round
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -241,6 +241,7 @@ def predict() -> int:
     num_riichi_deposit: int = args.num_riichi_deposit
     score: list[int] = args.score
 
+    validate_round(round_, game_length)
     if num_counter_stick < 0:
         msg = (
             "`num_counter_stick` must be greater than or equal to 0.:"

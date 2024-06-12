@@ -164,6 +164,19 @@ def validate_input_scores(
     validate_scores(scores, num_player)
 
 
+def validate_round(round_: Round, game_length: GameLength) -> None:
+    invalid_round = (
+        Round.WEST_1 if game_length == GameLength.TONPU else (Round.WEST_4 + 1)
+    )
+    if round_ >= invalid_round:
+        round_name = "West" if game_length == GameLength.TONPU else "North"
+        msg = (
+            f"In a {get_game_length_name(game_length)} game, rounds after"
+            f" {round_name}-1 do not exist."
+        )
+        raise ValueError(msg)
+
+
 def validate_input_probability(probability: float) -> None:
     if probability < 0.0 or probability > 1.0:
         msg = f"Invalid probability is input.: {probability}"
