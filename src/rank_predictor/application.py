@@ -289,4 +289,11 @@ def predict() -> int:
         player_rank_proba,
     )
 
+    print("Rank Probability")  # noqa: T201
+    for i, p in enumerate(player_rank_proba):
+        print(f"player_{i}: {p}")  # noqa: T201
+    print("\nAverage Rank")  # noqa: T201
+    for i, a in enumerate(average_ranks):
+        print(f"player_{i}: {a}")  # noqa: T201
+
     return 0
