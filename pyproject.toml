@@ -1,7 +1,7 @@
 [project]
 name = "rank-predictor"
 version = "0.1.0"
-description = "A tool for predict expected final rank in Japanese mahjong."
+description = "A tool to predict expected final rank in Japanese mahjong"
 authors = [
     { name = "Apricot-S" }
 ]
