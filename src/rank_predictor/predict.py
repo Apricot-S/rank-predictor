@@ -41,6 +41,6 @@ def calculate_player_rank_proba(
     return player_rank_proba
 
 
-def calculate_average_rank(player_rank_proba: np.ndarray) -> np.ndarray:
+def calculate_expected_rank(player_rank_proba: np.ndarray) -> np.ndarray:
     ranks = np.arange(1, player_rank_proba.shape[1] + 1)
     return np.sum(player_rank_proba * ranks, axis=1)

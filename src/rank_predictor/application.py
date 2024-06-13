@@ -285,14 +285,14 @@ def predict() -> int:
         num_player,
         proba,
     )
-    average_ranks = rank_predictor.predict.calculate_average_rank(
+    average_ranks = rank_predictor.predict.calculate_expected_rank(
         player_rank_proba,
     )
 
     print("Rank Probability")  # noqa: T201
     for i, p in enumerate(player_rank_proba):
         print(f"player_{i}: {p}")  # noqa: T201
-    print("\nAverage Rank")  # noqa: T201
+    print("\nExpected Rank")  # noqa: T201
     for i, a in enumerate(average_ranks):
         print(f"player_{i}: {a}")  # noqa: T201
 
