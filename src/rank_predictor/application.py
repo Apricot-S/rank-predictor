@@ -196,8 +196,13 @@ def train() -> int:
 def predict() -> int:
     import pickle
 
-    import rank_predictor.predict
     from rank_predictor.model import Model
+    from rank_predictor.predict import (
+        calculate_expected_rank,
+        calculate_player_rank_proba,
+        create_feature,
+        predict_proba,
+    )
     from rank_predictor.validate import validate_input_scores, validate_round
 
     parser = argparse.ArgumentParser()
@@ -273,21 +278,15 @@ def predict() -> int:
         raise ValueError(msg)
 
     score = [s // 100 for s in input_score]
-
-    feature = rank_predictor.predict.create_feature(
+    feature = create_feature(
         round_,
         num_counter_stick,
         num_riichi_deposit,
         score,
     )
-    proba = rank_predictor.predict.predict_proba(model, feature)
-    player_rank_proba = rank_predictor.predict.calculate_player_rank_proba(
-        num_player,
-        proba,
-    )
-    average_ranks = rank_predictor.predict.calculate_expected_rank(
-        player_rank_proba,
-    )
+    proba = predict_proba(model, feature)
+    player_rank_proba = calculate_player_rank_proba(num_player, proba)
+    average_ranks = calculate_expected_rank(player_rank_proba)
 
     print("Rank Probability")  # noqa: T201
     for i, p in enumerate(player_rank_proba):
