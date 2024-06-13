@@ -1,5 +1,4 @@
 from logging import getLogger
-from typing import Any
 
 import polars as pl
 from sklearn.linear_model import LogisticRegression
@@ -20,7 +19,7 @@ def train(
     num_player: NumPlayer,
     game_length: GameLength,
     training_data: pl.DataFrame,
-    hyper_parameter: dict[str, Any] | None,
+    classifier: LogisticRegression,
 ) -> Model:
     logger.info(
         "Training target: %s-Player, %s",
@@ -39,13 +38,8 @@ def train(
     label_column = DataName.RANK_CLASS
     feature = training_data.select(feature_columns)
     label = training_data.select(label_column).to_series()
-
-    if hyper_parameter is None:
-        hyper_parameter = {}
-
-    clf = LogisticRegression(**hyper_parameter)
-    clf.fit(feature, label)
+    classifier.fit(feature, label)
 
     logger.info("Training is complete.")
 
-    return Model(num_player, game_length, clf)
+    return Model(num_player, game_length, classifier)

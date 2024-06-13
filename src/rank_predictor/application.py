@@ -129,6 +129,7 @@ def train() -> int:
     import tomllib
 
     import polars as pl
+    from sklearn.linear_model import LogisticRegression
 
     import rank_predictor.train
 
@@ -178,13 +179,14 @@ def train() -> int:
 
     with config_path.open("rb") as fp:
         hyper_parameter = tomllib.load(fp)["hyper-parameter"]
+    classifier = LogisticRegression(**hyper_parameter)
     training_data = pl.read_csv(training_data_path)
 
     model = rank_predictor.train.train(
         num_player,
         game_length,
         training_data,
-        hyper_parameter,
+        classifier,
     )
 
     with model_path.open("wb") as f:
