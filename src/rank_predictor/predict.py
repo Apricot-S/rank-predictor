@@ -9,13 +9,12 @@ from rank_predictor.rank import get_indexes
 from rank_predictor.types import DataName, NumPlayer, Round
 
 
-def predict_proba(
-    model: Model,
+def create_feature(
     round_: Round,
     num_counter_stick: int,
     num_riichi_deposit: int,
     score: Sequence[int],
-) -> np.ndarray:
+) -> pl.DataFrame:
     data: dict[str, list[int]] = {
         DataName.ROUND: [round_],
         DataName.NUM_COUNTER_STICK: [num_counter_stick],
@@ -23,8 +22,10 @@ def predict_proba(
     }
     for i, s in enumerate(score):
         data[f"{DataName.SCORE}_{i}"] = [s]
-    feature = pl.DataFrame(data)
+    return pl.DataFrame(data)
 
+
+def predict_proba(model: Model, feature: pl.DataFrame) -> np.ndarray:
     assert isinstance(model.clf, LogisticRegression)  # noqa: S101
     return model.clf.predict_proba(feature)[0]  # type: ignore[reportArgumentType]
 

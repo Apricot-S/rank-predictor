@@ -274,13 +274,13 @@ def predict() -> int:
 
     score = [s // 100 for s in input_score]
 
-    proba = rank_predictor.predict.predict_proba(
-        model,
+    feature = rank_predictor.predict.create_feature(
         round_,
         num_counter_stick,
         num_riichi_deposit,
         score,
     )
+    proba = rank_predictor.predict.predict_proba(model, feature)
     player_rank_proba = rank_predictor.predict.calculate_player_rank_proba(
         num_player,
         proba,
