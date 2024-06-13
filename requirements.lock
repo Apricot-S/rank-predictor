@@ -14,6 +14,7 @@ defusedxml==0.7.1
 joblib==1.4.2
     # via scikit-learn
 numpy==1.26.4
+    # via rank-predictor
     # via scikit-learn
     # via scipy
 polars==0.20.30

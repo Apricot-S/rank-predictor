@@ -17,6 +17,7 @@ classifiers = [
 ]
 dependencies = [
     "scikit-learn>=1.5.0",
+    "numpy>=1.26.4",
     "polars>=0.20.30",
     "defusedxml>=0.7.1",
 ]
