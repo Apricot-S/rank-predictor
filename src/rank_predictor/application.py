@@ -288,13 +288,13 @@ def predict() -> int:
     )
     proba = predict_proba(model, feature)
     player_rank_proba = calculate_player_rank_proba(num_player, proba)
-    average_ranks = calculate_expected_rank(player_rank_proba)
+    expected_ranks = calculate_expected_rank(player_rank_proba)
 
     print("Rank Probability")  # noqa: T201
     for i, p in enumerate(player_rank_proba):
         print(f"player_{i}: {p}")  # noqa: T201
     print("\nExpected Rank")  # noqa: T201
-    for i, a in enumerate(average_ranks):
+    for i, a in enumerate(expected_ranks):
         print(f"player_{i}: {a}")  # noqa: T201
 
     return 0
