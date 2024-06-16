@@ -110,6 +110,11 @@ def split() -> int:
         "--shuffle-false",
         action="store_true",
     )
+    parser.add_argument(
+        "-y",
+        "--stratify-y",
+        action="store_true",
+    )
     args = parser.parse_args()
 
     rank_predictor.split.split(
@@ -120,6 +125,7 @@ def split() -> int:
         args.train_size,
         args.random_state,
         shuffle=(not args.shuffle_false),
+        stratify=args.stratify_y,
     )
     return 0
 

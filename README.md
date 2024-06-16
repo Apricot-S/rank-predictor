@@ -50,6 +50,7 @@ The meaning of each argument is as follows:
 |5|(Optional) train_size|Specify with `--train_size`|
 |6|(Optional) random_state|Specify with `-r` or `--random_state`|
 |7|(Optional) shuffle|Disabled by specifying `-f` or `--shuffle-false`|
+|8|(Optional) stratify|Esabled by specifying `-y` or `--stratify-y`. This option specifies `rank_class` as the class label for stratified sampling.|
 
 ### Training and saving a model
 

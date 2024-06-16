@@ -3,6 +3,8 @@ from pathlib import Path
 import polars as pl
 from sklearn.model_selection import train_test_split
 
+from rank_predictor.types import DataName
+
 
 def split(
     input_data_path: Path,
@@ -13,8 +15,13 @@ def split(
     random_state: int | None = None,
     *,
     shuffle: bool = True,
+    stratify: bool = False,
 ) -> None:
     input_data = pl.read_csv(input_data_path)
+
+    label = None
+    if stratify:
+        label = input_data.select(DataName.RANK_CLASS).to_series()
 
     train_data, test_data = train_test_split(
         input_data,
@@ -22,6 +29,7 @@ def split(
         train_size=train_size,
         random_state=random_state,
         shuffle=shuffle,
+        stratify=label,
     )
 
     assert isinstance(train_data, pl.DataFrame)  # noqa: S101
