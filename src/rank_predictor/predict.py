@@ -2,7 +2,6 @@ from collections.abc import Sequence
 
 import numpy as np
 import polars as pl
-from sklearn.linear_model import LogisticRegression
 
 from rank_predictor.model import Model
 from rank_predictor.rank import get_indexes
@@ -26,8 +25,7 @@ def create_feature(
 
 
 def predict_proba(model: Model, feature: pl.DataFrame) -> np.ndarray:
-    assert isinstance(model.clf, LogisticRegression)  # noqa: S101
-    return model.clf.predict_proba(feature)[0]  # type: ignore[reportArgumentType]
+    return model.classifier.predict_proba(feature)[0]
 
 
 def calculate_player_rank_proba(

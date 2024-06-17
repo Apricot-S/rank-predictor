@@ -1,9 +1,8 @@
 from logging import getLogger
 
 import polars as pl
-from sklearn.linear_model import LogisticRegression
 
-from rank_predictor.model import Model
+from rank_predictor.model import Classifier, Model
 from rank_predictor.types import (
     DataName,
     GameLength,
@@ -19,7 +18,7 @@ def train(
     num_player: NumPlayer,
     game_length: GameLength,
     training_data: pl.DataFrame,
-    classifier: LogisticRegression,
+    classifier: Classifier,
 ) -> Model:
     logger.info(
         "Training target: %s-Player, %s",
