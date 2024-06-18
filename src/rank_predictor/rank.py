@@ -1,3 +1,5 @@
+"""Provides functionality for rank classification."""
+
 from collections.abc import Sequence
 from itertools import permutations
 from typing import Final
@@ -13,6 +15,22 @@ def get_indexes(
     player: int,
     rank: int,
 ) -> tuple[int, ...]:
+    """Retrieves the indexes of the rank permutations.
+
+    Args:
+        num_player: The number of players.
+        player: The index of the player whose rank is to be found.
+            Index is 0-based.
+        rank: The rank to find within the permutations. Rank is 0-based.
+
+    Returns:
+        Indexes of permutations where the player's rank is equal to the
+            specified rank.
+
+    Raises:
+        IndexError: If `rank` is out of the valid range based on
+            `num_player`.
+    """
     rank_permutation = (
         RANK_PERMUTATION_4
         if num_player == NumPlayer.FOUR
@@ -34,6 +52,21 @@ RANK_CLASS_3: Final = {
 
 
 def classify(scores: Sequence[int]) -> int:
+    """Classifies the rank of players based on their scores.
+
+    It sorts the scores in descending order and maps the sorted indexes
+    to the corresponding rank permutation.
+
+    Args:
+        scores: The scores of players.
+
+    Returns:
+        The index of rank permutation that corresponds to the scores.
+
+    Raises:
+        ValueError: If the number of scores provided does not match the
+            expected number of players (4 or 3).
+    """
     num_player = len(scores)
     if num_player not in NumPlayer:
         msg = f"The number of scores is invalid.: {num_player}"
