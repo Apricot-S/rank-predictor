@@ -1,3 +1,5 @@
+"""Provides functionality to train model."""
+
 from logging import getLogger
 
 import polars as pl
@@ -20,6 +22,29 @@ def train(
     training_data: pl.DataFrame,
     classifier: Classifier,
 ) -> Model:
+    """Trains a model using the provided classifier and training data.
+
+    This function utilizes specific features and a label from
+    `training_data`. The features include `round`, `num_counter_stick`,
+    `num_riichi_deposit`, and `score_*`. Here, * depends on the number
+    of players. For a 4-player, * takes values from 0 to 3, and for a
+    3-player, * takes values from 0 to 2. The label used is
+    `rank_class`.
+
+    Args:
+        num_player: The number of players.
+        game_length: The length of the game.
+        training_data: The data used for training the model
+            which includes features and labels.
+        classifier: The machine learning classifier used to train.
+
+    Returns:
+        An instance of a trained model that is ready to make
+            predictions.
+
+    Raises:
+        ValueError: If the `training_data` is invalid.
+    """
     logger.info(
         "Training target: %s-Player, %s",
         num_player,
