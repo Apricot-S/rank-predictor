@@ -40,24 +40,6 @@ def get_game_length_name(game_length: GameLength) -> str:
     return "Tonpu" if game_length == GameLength.TONPU else "Hanchan"
 
 
-class DataName(StrEnum):
-    """Enum for the column names in annotated data.
-
-    Attributes:
-        ROUND: "round"
-        NUM_COUNTER_STICK: "num_counter_stick"
-        NUM_RIICHI_DEPOSIT: "num_riichi_deposit"
-        SCORE: "score"
-        RANK_CLASS: "rank_class"
-    """
-
-    ROUND = "round"
-    NUM_COUNTER_STICK = "num_counter_stick"
-    NUM_RIICHI_DEPOSIT = "num_riichi_deposit"
-    SCORE = "score"
-    RANK_CLASS = "rank_class"
-
-
 class Round(IntEnum):
     """Enum for the rounds in a game.
 
@@ -88,3 +70,21 @@ class Round(IntEnum):
     WEST_2 = 9
     WEST_3 = 10
     WEST_4 = 11
+
+
+class DataName(StrEnum):
+    """Enum for the column names in annotated data.
+
+    Attributes:
+        ROUND: "round"
+        NUM_COUNTER_STICK: "num_counter_stick"
+        NUM_RIICHI_DEPOSIT: "num_riichi_deposit"
+        SCORE: "score"
+        RANK_CLASS: "rank_class"
+    """
+
+    ROUND = "round"
+    NUM_COUNTER_STICK = "num_counter_stick"
+    NUM_RIICHI_DEPOSIT = "num_riichi_deposit"
+    SCORE = "score"
+    RANK_CLASS = "rank_class"
