@@ -7,7 +7,32 @@ from typing import Final
 from rank_predictor.types import NumPlayer
 
 RANK_PERMUTATION_4: Final = tuple(permutations(range(NumPlayer.FOUR)))
+"""
+A tuple of all possible rank permutations for 4 players.
+
+Each permutation represents the ranks of the players with 0-based
+indexes.
+
+Examples:
+    >>> len(RANK_PERMUTATION_4)
+    24
+    >>> print(RANK_PERMUTATION_4)
+    ((0, 1, 2, 3), (0, 1, 3, 2), ..., (3, 2, 0, 1), (3, 2, 1, 0))
+"""
+
 RANK_PERMUTATION_3: Final = tuple(permutations(range(NumPlayer.THREE)))
+"""
+A tuple of all possible rank permutations for 3 players.
+
+Each permutation represents the ranks of the players with 0-based
+indexes.
+
+Examples:
+    >>> len(RANK_PERMUTATION_3)
+    6
+    >>> print(RANK_PERMUTATION_3)
+    ((0, 1, 2), (0, 2, 1), (1, 0, 2), (1, 2, 0), (2, 0, 1), (2, 1, 0))
+"""
 
 
 def get_indexes(
