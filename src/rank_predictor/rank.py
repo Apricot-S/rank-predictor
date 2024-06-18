@@ -28,7 +28,7 @@ def get_indexes(
             specified rank.
 
     Raises:
-        IndexError: If `player` of `rank` is out of the valid range
+        IndexError: If `player` or `rank` is out of the valid range
             based on `num_player`.
     """
     if not (0 <= player < num_player):
