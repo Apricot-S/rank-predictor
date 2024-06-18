@@ -1,3 +1,5 @@
+"""Provides a tool for converting game records into annotated data."""
+
 from dataclasses import dataclass
 from enum import IntFlag
 from logging import getLogger
@@ -201,6 +203,32 @@ def convert(
     output_final_score: bool,
     output_filename: bool,
 ) -> None:
+    """Converts game records into annotated data format.
+
+    This function takes game records from a specified directory and
+    converts them into an annotated data format suitable for analysis.
+    It supports customization of the output, including whether to
+    include final scores and filenames in the conversion. The supported
+    game record format is mjlog, and the annotated data is consolidated
+    into a single CSV file.
+
+    Args:
+        num_player: The number of players in the game being converted.
+        game_length: The length of the game being converted.
+        game_record_dir: The directory containing game records.
+        game_record_extension: The file extension of the game records.
+        annotated_data: The destination path for the annotated data.
+        output_final_score: If True, includes the final scores in the
+            annotated data.
+        output_filename: If True, includes the filenames in the
+            annotated data.
+
+    Raises:
+        FileNotFoundError: If the game record directory is not found
+            or cannot be accessed.
+        FileExistsError: If a directory with the same name as the output
+            file already exists.
+    """
     if not game_record_dir.is_dir():
         msg = f"`game_record_dir` is not directory: {game_record_dir}"
         raise FileNotFoundError(msg)
