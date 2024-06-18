@@ -7,8 +7,7 @@ from typing import Final
 from rank_predictor.types import NumPlayer
 
 RANK_PERMUTATION_4: Final = tuple(permutations(range(NumPlayer.FOUR)))
-"""
-A tuple of all possible rank permutations for 4 players.
+"""A tuple of all possible rank permutations for 4 players.
 
 Each permutation represents the ranks of the players with 0-based
 indexes.
@@ -21,8 +20,7 @@ Examples:
 """
 
 RANK_PERMUTATION_3: Final = tuple(permutations(range(NumPlayer.THREE)))
-"""
-A tuple of all possible rank permutations for 3 players.
+"""A tuple of all possible rank permutations for 3 players.
 
 Each permutation represents the ranks of the players with 0-based
 indexes.
@@ -77,10 +75,37 @@ RANK_CLASS_4: Final = {
     "".join(map(str, p)): i
     for i, p in enumerate(permutations(range(NumPlayer.FOUR)))
 }
+"""A dict mapping the string representation of rank permutations to
+their index for 4 players.
+
+Each key is a string that represents a permutation of ranks (0-based)
+for 4 players, and each value is the index of that permutation in the
+list of all possible permutations.
+
+Examples:
+    >>> len(RANK_CLASS_4)
+    24
+    >>> print(RANK_CLASS_4)
+    {'0123': 0, '0132': 1, ..., '3201': 22, '3210': 23}
+"""
+
 RANK_CLASS_3: Final = {
     "".join(map(str, p)): i
     for i, p in enumerate(permutations(range(NumPlayer.THREE)))
 }
+"""A dict mapping the string representation of rank permutations to
+their index for 3 players.
+
+Each key is a string that represents a permutation of ranks (0-based)
+for 3 players, and each value is the index of that permutation in the
+list of all possible permutations.
+
+Examples:
+    >>> len(RANK_CLASS_3)
+    6
+    >>> print(RANK_CLASS_3)
+    {'012': 0, '021': 1, '102': 2, '120': 3, '201': 4, '210': 5}
+"""
 
 
 def classify(scores: Sequence[int]) -> int:
