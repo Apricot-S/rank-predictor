@@ -28,9 +28,16 @@ def get_indexes(
             specified rank.
 
     Raises:
-        IndexError: If `rank` is out of the valid range based on
-            `num_player`.
+        IndexError: If `player` of `rank` is out of the valid range
+            based on `num_player`.
     """
+    if not (0 <= player < num_player):
+        msg = f"Player index {player} is out of range for {num_player}-player."
+        raise IndexError(msg)
+    if not (0 <= rank < num_player):
+        msg = f"Rank {rank} is out of range for {num_player}-player."
+        raise IndexError(msg)
+
     rank_permutation = (
         RANK_PERMUTATION_4
         if num_player == NumPlayer.FOUR
