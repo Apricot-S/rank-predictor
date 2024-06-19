@@ -38,7 +38,7 @@ def create_feature(
 
 
 def predict_proba(model: Model, feature: pl.DataFrame) -> np.ndarray:
-    """Predicts the probabilities for each rank class.
+    """Predicts the probabilities of each rank class.
 
     For more information on rank classes, refer to
     `rank_predictor.rank.RANK_CLASS_4` and
@@ -49,7 +49,7 @@ def predict_proba(model: Model, feature: pl.DataFrame) -> np.ndarray:
         feature: The features to use as input for prediction.
 
     Returns:
-        An array of the probabilities for each rank class.
+        An array of the probabilities of each rank class.
     """
     return model.classifier.predict_proba(feature)[0]
 
@@ -58,14 +58,14 @@ def calculate_player_rank_proba(
     num_player: NumPlayer,
     proba: np.ndarray,
 ) -> np.ndarray:
-    """Calculates the probabilities for each player's rank.
+    """Calculates the probabilities of each player's rank.
 
     Args:
         num_player: The number of players.
-        proba: The probabilities for each rank class.
+        proba: The probabilities of each rank class.
 
     Returns:
-        An array of the probabilities for each player's rank.
+        An array of the probabilities of each player's rank.
 
     Examples:
         >>> proba = np.array(
@@ -96,13 +96,13 @@ def calculate_player_rank_proba(
 
 
 def calculate_expected_rank(player_rank_proba: np.ndarray) -> np.ndarray:
-    """Calculates the expected rank for each player.
+    """Calculates the expected rank of each player.
 
     Args:
         player_rank_proba: The probabilities of each player's rank.
 
     Returns:
-        An array of the expected ranks for each player.
+        An array of the expected ranks of each player.
 
     Examples:
         >>> player_rank_proba = np.array(
