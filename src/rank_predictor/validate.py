@@ -1,3 +1,5 @@
+"""Provides functionality to validate data."""
+
 from collections.abc import Sequence
 from typing import Final, assert_never
 
@@ -21,6 +23,19 @@ def validate_annotated_data(
     game_length: GameLength,
     annotated_data: pl.DataFrame,
 ) -> None:
+    """Validates annotated data.
+
+    Check if all annotated data are valid values.
+
+    Args:
+        num_player: The number of player in the annotated data.
+        game_length: The length of the game in the annotated data.
+        annotated_data: A DataFrame containing annotated data.
+
+    Raises:
+        ValueError: If the annotated data does not contain required
+            values or contains invalid values.
+    """
     required_columns = [
         DataName.ROUND,
         DataName.NUM_COUNTER_STICK,
@@ -116,18 +131,61 @@ def validate_annotated_data(
 
 
 def validate_score_4(score: int) -> None:
+    """Validates a score for 4-player mahjong.
+
+    Checks if the score for 4-player mahjong is within the valid range.
+    The score must be a non-negative integer and must not exceed the
+    total score of the 4 players.
+    Omit the last two digits of the score.
+
+    Args:
+        score: The player's score for 4-player mahjong.
+
+    Raises:
+        ValueError: If the score is less than 0 or greater than the
+            total score of the 4 players.
+    """
     if score < 0 or score > TOTAL_SCORE_4:
         msg = f"The score for 4-player is incorrect.: {score}"
         raise ValueError(msg)
 
 
 def validate_score_3(score: int) -> None:
+    """Validates a score for 3-player mahjong.
+
+    Checks if the score for 3-player mahjong is within the valid range.
+    The score must be a non-negative integer and must not exceed the
+    total score of the 3 players.
+    Omit the last two digits of the score.
+
+    Args:
+        score: The player's score for 3-player mahjong.
+
+    Raises:
+        ValueError: If the score is less than 0 or greater than the
+            total score of the 3 players.
+    """
     if score < 0 or score > TOTAL_SCORE_3:
         msg = f"The score for 3-player is incorrect.: {score}"
         raise ValueError(msg)
 
 
 def validate_score(score: int, num_player: NumPlayer) -> None:
+    """Validates a score.
+
+    Checks if the score is within the valid range.
+    The score must be a non-negative integer and must not exceed the
+    total score of the specified number of players.
+    Omit the last two digits of the score.
+
+    Args:
+        score: The player's score.
+        num_player: The number of players.
+
+    Raises:
+        ValueError: If the score is less than 0 or greater than the
+            total score of the specified number of players.
+    """
     match num_player:
         case NumPlayer.FOUR:
             validate_score_4(score)
@@ -138,18 +196,58 @@ def validate_score(score: int, num_player: NumPlayer) -> None:
 
 
 def validate_total_score_4(total_score: int) -> None:
+    """Validates a total score for 4-player mahjong.
+
+    Checks if the total score matches the total score required by the
+    rule of 4-player mahjong.
+    Omit the last two digits of the score.
+
+    Args:
+        total_score: The total score for 4-player mahjong.
+
+    Raises:
+        ValueError: If the total score does not match the total score
+            required by the rules.
+    """
     if total_score != TOTAL_SCORE_4:
         msg = f"The total score of 4-player is incorrect.: {total_score}"
         raise ValueError(msg)
 
 
 def validate_total_score_3(total_score: int) -> None:
+    """Validates a total score for 3-player mahjong.
+
+    Checks if the total score matches the total score required by the
+    rule of 3-player mahjong.
+    Omit the last two digits of the score.
+
+    Args:
+        total_score: The total score for 3-player mahjong.
+
+    Raises:
+        ValueError: If the total score does not match the total score
+            required by the rules.
+    """
     if total_score != TOTAL_SCORE_3:
         msg = f"The total score of 3-player is incorrect.: {total_score}"
         raise ValueError(msg)
 
 
 def validate_total_score(total_score: int, num_player: NumPlayer) -> None:
+    """Validates a total score.
+
+    Checks if the total score matches the total score required by the
+    rule of mahjong for the specified number of players.
+    Omit the last two digits of the score.
+
+    Args:
+        total_score: The total score.
+        num_player: The number of players.
+
+    Raises:
+        ValueError: If the total score does not match the total score
+            required by the rules.
+    """
     match num_player:
         case NumPlayer.FOUR:
             validate_total_score_4(total_score)
@@ -164,6 +262,23 @@ def validate_scores(
     scores: Sequence[int],
     num_player: NumPlayer,
 ) -> None:
+    """Validates scores.
+
+    Checks if each score and its total are valid according to the rules.
+    Omit the last two digits of the score.
+
+    Args:
+        num_riichi_deposit: The number riichi deposits.
+        scores: The players' scores.
+        num_player: The number of players.
+
+    Raises:
+        ValueError: If the number of riichi deposits is negative,
+            if the number of scores does not match the number of
+            players, if a score is less than 0 or greater than the total
+            score of the specified number of players, or if the total
+            score does not match the total score required by the rules.
+    """
     if num_riichi_deposit < 0:
         msg = (
             "The number of riichi deposit must be greater than or equal to 0.:"
@@ -183,6 +298,25 @@ def validate_input_scores(
     input_scores: Sequence[int],
     num_player: NumPlayer,
 ) -> None:
+    """Validates input scores.
+
+    First checks if the last two digits of each input score are 0.
+    Then, checks if each score and its total are valid according to the
+    rules.
+
+    Args:
+        num_riichi_deposit: The number riichi deposits.
+        input_scores: The input players' scores.
+        num_player: The number of players.
+
+    Raises:
+        ValueError: If the last two digits of each input score are not
+            0, if the number of riichi deposits is negative, if the
+            number of scores does not match the number of players, if a
+            score is less than 0 or greater than the total score of the
+            specified number of players, or if the total score does not
+            match the total score required by the rules.
+    """
     scores = []
     for input_score in input_scores:
         score, mod = divmod(input_score, 100)
@@ -194,6 +328,20 @@ def validate_input_scores(
 
 
 def validate_round(round_: Round, game_length: GameLength) -> None:
+    """Validates round.
+
+    Checks if the round is valid for the game length.
+    If the game length is Tonpu (東風), the round will be up to South 4
+    (南4局). If the game length is Hanchan (半荘), the round will be up
+    to West 4 (西4局).
+
+    Args:
+        round_: The round to validate.
+        game_length: The length of the game.
+
+    Raises:
+        ValueError: If the round is invalid for the game length.
+    """
     invalid_round = (
         Round.WEST_1 if game_length == GameLength.TONPU else (Round.WEST_4 + 1)
     )
