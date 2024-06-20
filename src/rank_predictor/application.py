@@ -1,3 +1,7 @@
+"""Entry points."""
+
+# ruff: noqa: D103
+
 import argparse
 from logging import INFO, Formatter, StreamHandler, basicConfig
 from pathlib import Path
