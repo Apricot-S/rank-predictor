@@ -61,7 +61,7 @@ def train(
     ]
     label_column = DataName.RANK_CLASS
     feature = training_data.select(feature_columns).to_numpy()
-    label = training_data.select(label_column).to_series().to_numpy()
+    label = training_data.get_column(label_column).to_numpy()
     classifier.fit(feature, label)
 
     logger.info("Training is complete.")

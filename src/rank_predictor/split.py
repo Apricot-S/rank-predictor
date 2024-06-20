@@ -48,7 +48,7 @@ def split(
 
     label = None
     if stratify:
-        label = input_data.select(DataName.RANK_CLASS).to_series()
+        label = input_data.get_column(DataName.RANK_CLASS)
 
     train_data, test_data = train_test_split(
         input_data,
