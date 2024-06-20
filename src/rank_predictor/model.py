@@ -2,7 +2,7 @@
 
 # ruff: noqa: N803, ANN401
 
-from typing import Any, Protocol, Self
+from typing import Protocol, Self
 
 import numpy as np
 
@@ -15,7 +15,7 @@ class Classifier(Protocol):
     Requires implementation of `fit` and `predict_proba` methods.
     """
 
-    def fit(self, X: Any, y: Any, *args, **kwargs) -> Self:
+    def fit(self, X: np.ndarray, y: np.ndarray, *args, **kwargs) -> Self:
         """Fits the model according to the given training data.
 
         Args:
@@ -29,7 +29,7 @@ class Classifier(Protocol):
         """
         ...
 
-    def predict_proba(self, X: Any, *args, **kwargs) -> np.ndarray:
+    def predict_proba(self, X: np.ndarray, *args, **kwargs) -> np.ndarray:
         """Predict the probabilities of each class.
 
         Args:
