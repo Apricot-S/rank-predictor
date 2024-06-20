@@ -60,8 +60,8 @@ def train(
         *[f"{DataName.SCORE}_{i}" for i in range(num_player)],
     ]
     label_column = DataName.RANK_CLASS
-    feature = training_data.select(feature_columns)
-    label = training_data.select(label_column).to_series()
+    feature = training_data.select(feature_columns).to_numpy()
+    label = training_data.select(label_column).to_series().to_numpy()
     classifier.fit(feature, label)
 
     logger.info("Training is complete.")

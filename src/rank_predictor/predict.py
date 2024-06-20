@@ -51,7 +51,7 @@ def predict_proba(model: Model, feature: pl.DataFrame) -> np.ndarray:
     Returns:
         An array of the probabilities of each rank class.
     """
-    return model.classifier.predict_proba(feature)[0]
+    return model.classifier.predict_proba(feature.to_numpy())[0]
 
 
 def calculate_player_rank_proba(
