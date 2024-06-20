@@ -97,7 +97,7 @@ The meaning of each argument is as follows:
 |1|The number of players|Accepts only `4` or `3`|
 |2|The length of game|Accepts only `t` (Tonpu) or `h` (Hanchan)|
 |3|Path to the file where the trained model is saved||
-|4|The number of round|East 1 (東1局) is `0`, South 1 (南1局) is `4`, West 1 (西1局) is `8`. Accepts only from `0` to `11`|
+|4|The number of round (局)|East 1 (東1局) is `0`, South 1 (南1局) is `4`, West 1 (西1局) is `8`. Accepts only from `0` to `11`|
 |5|The number of counter sticks (本場)||
 |6|The number of riichi deposits (供託本数)|\*1|
 |7|The score of the qijia (dealer at the start of a game) (起家の点数)|\*1\*2|
