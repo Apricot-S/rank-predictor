@@ -56,7 +56,7 @@ def validate_annotated_data(
 
     for name in required_columns:
         column_data = annotated_data.select(pl.col(name)).to_series()
-        if not column_data.is_integer():
+        if not column_data.dtype.is_integer():
             msg = f"`{name}` column datatype is not an integer."
             raise ValueError(msg)
         if column_data.is_null().any():
