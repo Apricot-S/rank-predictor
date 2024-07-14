@@ -3,7 +3,7 @@ name = "rank-predictor"
 version = "0.1.0"
 description = "A tool to predict expected final rank in Japanese mahjong"
 authors = [
-    { name = "Apricot-S" }
+    { name = "Apricot S." }
 ]
 license = { text = "MIT License" }
 readme = "README.md"
