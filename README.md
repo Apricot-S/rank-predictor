@@ -85,6 +85,16 @@ For 3 Players
 | 2nd           | 3rd           | 1st           | 4          |
 | 3rd           | 2nd           | 1st           | 5          |
 
+Example
+
+```csv
+round,num_counter_stick,num_riichi_deposit,score_0,score_1,score_2,score_3,rank_class
+0,0,0,250,250,250,250,13
+1,0,0,250,250,170,330,13
+2,0,0,277,237,163,323,13
+...
+```
+
 ### Splitting the annotated data into train and test subsets
 
 ```sh
