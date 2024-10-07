@@ -30,6 +30,21 @@ The meaning of each argument is as follows:
 |6|(Optional) Outputs final score|Enabled by specifying `-f` or `--final-score`|
 |7|(Optional) Outputs game record file name|Enabled by specifying `-n` or `--filename`|
 
+#### Annotated Data Format
+
+The annotated data is saved in CSV format and contains the following columns:
+
+|Column|Explanation|Note|
+|-|-|-|
+|round|The number of round (局)|East 1 (東1局) is `0`, South 1 (南1局) is `4`, West 1 (西1局) is `8`. Accepts only from `0` to `11`|
+|num_counter_stick|The number of counter sticks (本場)||
+|num_riichi_deposit|The number of riichi deposits (供託本数)||
+|score_0|The score of the qijia (dealer at the start of a game) (起家の点数)||
+|score_1|The score of the player right next to the qijia (起家の下家の点数)||
+|score_2|The score of the player across from the qijia (起家の対面の点数)||
+|score_3|The score of the player left next to the qijia (起家の上家の点数)|Applies only if number of players is `4`|
+|rank_class|-|-|
+
 ### Splitting the annotated data into train and test subsets
 
 ```sh
