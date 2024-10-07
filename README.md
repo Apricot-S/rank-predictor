@@ -1,6 +1,6 @@
 # rank-predictor
 
-A tool to predict expected final rank in Japanese mahjong
+Tools to predict expected final rank in Japanese mahjong
 
 ## Installation
 
