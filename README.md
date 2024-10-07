@@ -42,8 +42,48 @@ The annotated data is saved in CSV format and contains the following columns:
 |score_0|The score of the qijia (dealer at the start of a game) (起家の点数)||
 |score_1|The score of the player right next to the qijia (起家の下家の点数)||
 |score_2|The score of the player across from the qijia (起家の対面の点数)||
-|score_3|The score of the player left next to the qijia (起家の上家の点数)|Applies only if number of players is `4`|
-|rank_class|-|-|
+|score_3|The score of the player left next to the qijia (起家の上家の点数)|Outputs only if number of players is `4`|
+|rank_class|The class label representing the permutation of the players' final ranks of the game|Determined by the following tables|
+
+For 4 Players
+
+| Player 0 Rank | Player 1 Rank | Player 2 Rank | Player 3 Rank | Rank Class |
+| ------------- | ------------- | ------------- | ------------- | ---------- |
+| 1st           | 2nd           | 3rd           | 4th           | 0          |
+| 1st           | 2nd           | 4th           | 3rd           | 1          |
+| 1st           | 3rd           | 2nd           | 4th           | 2          |
+| 1st           | 4th           | 2nd           | 3rd           | 3          |
+| 1st           | 3rd           | 4th           | 2nd           | 4          |
+| 1st           | 4th           | 3rd           | 2nd           | 5          |
+| 2nd           | 1st           | 3rd           | 4th           | 6          |
+| 2nd           | 1st           | 4th           | 3rd           | 7          |
+| 3rd           | 1st           | 2nd           | 4th           | 8          |
+| 4th           | 1st           | 2nd           | 3rd           | 9          |
+| 3rd           | 1st           | 4th           | 2nd           | 10         |
+| 4th           | 1st           | 3rd           | 2nd           | 11         |
+| 2nd           | 3rd           | 1st           | 4th           | 12         |
+| 2nd           | 4th           | 1st           | 3rd           | 13         |
+| 3rd           | 2nd           | 1st           | 4th           | 14         |
+| 4th           | 2nd           | 1st           | 3rd           | 15         |
+| 3rd           | 4th           | 1st           | 2nd           | 16         |
+| 4th           | 3rd           | 1st           | 2nd           | 17         |
+| 2nd           | 3rd           | 4th           | 1st           | 18         |
+| 2nd           | 4th           | 3rd           | 1st           | 19         |
+| 3rd           | 2nd           | 4th           | 1st           | 20         |
+| 4th           | 2nd           | 3rd           | 1st           | 21         |
+| 3rd           | 4th           | 2nd           | 1st           | 22         |
+| 4th           | 3rd           | 2nd           | 1st           | 23         |
+
+For 3 Players
+
+| Player 0 Rank | Player 1 Rank | Player 2 Rank | Rank Class |
+| ------------- | ------------- | ------------- | ---------- |
+| 1st           | 2nd           | 3rd           | 0          |
+| 1st           | 3rd           | 2nd           | 1          |
+| 2nd           | 1st           | 3rd           | 2          |
+| 3rd           | 1st           | 2nd           | 3          |
+| 2nd           | 3rd           | 1st           | 4          |
+| 3rd           | 2nd           | 1st           | 5          |
 
 ### Splitting the annotated data into train and test subsets
 
