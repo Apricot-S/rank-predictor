@@ -36,7 +36,7 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = [
     "mypy>=1.10.0",
-    "ruff>=0.4.6",
+    "ruff>=0.6.9",
 ]
 
 [tool.rye.scripts]
