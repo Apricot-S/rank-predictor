@@ -36,7 +36,7 @@ The annotated data is saved in CSV format and contains the following columns:
 
 |Column|Explanation|Note|
 |-|-|-|
-|round|The number of round (局)|East 1 (東1局) is `0`, South 1 (南1局) is `4`, West 1 (西1局) is `8`. Accepts only from `0` to `11`|
+|round|The number of round (局)|East 1 (東1局) is `0`, South 1 (南1局) is `4`, West 1 (西1局) is `8`|
 |num_counter_stick|The number of counter sticks (本場)||
 |num_riichi_deposit|The number of riichi deposits (供託本数)||
 |score_0|The score of the qijia (dealer at the start of a game) (起家の点数)||
@@ -45,7 +45,7 @@ The annotated data is saved in CSV format and contains the following columns:
 |score_3|The score of the player left next to the qijia (起家の上家の点数)|Outputs only if number of players is `4`|
 |rank_class|The class label representing the permutation of the players' final ranks of the game|Determined by the following tables|
 
-For 4 Players
+Rank Class For 4 Players
 
 | Player 0 Rank | Player 1 Rank | Player 2 Rank | Player 3 Rank | Rank Class |
 | ------------- | ------------- | ------------- | ------------- | ---------- |
@@ -74,7 +74,7 @@ For 4 Players
 | 3rd           | 4th           | 2nd           | 1st           | 22         |
 | 4th           | 3rd           | 2nd           | 1st           | 23         |
 
-For 3 Players
+Rank Class For 3 Players
 
 | Player 0 Rank | Player 1 Rank | Player 2 Rank | Rank Class |
 | ------------- | ------------- | ------------- | ---------- |
