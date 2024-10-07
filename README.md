@@ -43,7 +43,7 @@ The annotated data is saved in CSV format and contains the following columns:
 |score_1|The score of the player right next to the qijia (起家の下家の点数)||
 |score_2|The score of the player across from the qijia (起家の対面の点数)||
 |score_3|The score of the player left next to the qijia (起家の上家の点数)|Outputs only if number of players is `4`|
-|rank_class|The class label representing the permutation of the players' final ranks of the game|Determined by the following tables|
+|rank_class|The class label representing the permutation of the players' final ranks in the game|Determined by the following tables|
 
 Rank Class For 4 Players
 
