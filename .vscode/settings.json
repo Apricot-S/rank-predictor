@@ -9,7 +9,6 @@
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.diagnosticMode": "workspace",
     "ruff.enable": true,
-    "ruff.lint.run": "onSave",
     "ruff.organizeImports": true,
     "[json]": {
         "editor.formatOnSave": true,
