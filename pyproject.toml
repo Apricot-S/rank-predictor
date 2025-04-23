@@ -6,6 +6,7 @@ authors = [
     { name = "Apricot S." }
 ]
 license = "MIT"
+license-files = ["LICENSE", "THIRD-PARTY-NOTICES.md"]
 readme = "README.md"
 requires-python = ">= 3.12"
 classifiers = [
