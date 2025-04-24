@@ -60,8 +60,6 @@ ignore = [
     "C901",    # complex-structure
     "ANN002",  # missing-type-args
     "ANN003",  # missing-type-kwargs
-    "ANN101",  # missing-type-self
-    "ANN102",  # missing-type-cls
     "TD002",   # missing-todo-author
     "TD003",   # missing-todo-link
     "PLR0911", # too-many-return-statements
