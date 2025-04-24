@@ -28,6 +28,9 @@ rank-predictor-split = "rank_predictor.application:split"
 rank-predictor-train = "rank_predictor.application:train"
 rank-predictor = "rank_predictor.application:predict"
 
+[project.urls]
+Repository = "https://github.com/Apricot-S/rank-predictor.git"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
