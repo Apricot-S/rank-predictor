@@ -262,6 +262,10 @@ def convert(
         tree = ElementTree.parse(file)
         root = tree.getroot()
 
+        if root is None:
+            logger.warning("This file is empty or not well-formed.")
+            continue
+
         if root.tag != "mjloggm":
             logger.warning("This file is not in mjlog format.")
             continue
