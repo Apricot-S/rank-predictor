@@ -145,9 +145,9 @@ typing = [
 [package.metadata]
 requires-dist = [
     { name = "defusedxml", specifier = ">=0.7.1" },
-    { name = "numpy", specifier = ">=2.1.2" },
-    { name = "polars", specifier = ">=1.9.0" },
-    { name = "scikit-learn", specifier = ">=1.5.2" },
+    { name = "numpy", specifier = ">=2.3.1" },
+    { name = "polars", specifier = ">=1.31.0" },
+    { name = "scikit-learn", specifier = ">=1.7.0" },
 ]
 
 [package.metadata.requires-dev]
