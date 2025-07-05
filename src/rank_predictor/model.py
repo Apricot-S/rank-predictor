@@ -1,6 +1,6 @@
 """Provides classes for classifier model."""
 
-# ruff: noqa: N803, ANN401
+# ruff: noqa: N803
 
 from typing import Protocol, Self
 
