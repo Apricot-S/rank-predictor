@@ -35,16 +35,17 @@ Repository = "https://github.com/Apricot-S/rank-predictor.git"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.rye]
-managed = true
-dev-dependencies = [
-    "mypy>=1.10.0",
-    "ruff>=0.6.9",
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "typing" },
 ]
-
-[tool.rye.scripts]
-format = "ruff format src"
-lint = { chain = ["ruff check src", "mypy src"] }
+lint = [
+    "ruff>=0.12.2,<0.13",
+]
+typing = [
+    "mypy>=1.16.1,<2",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
