@@ -189,10 +189,7 @@ def main() -> None:
 
     parser_convert = subparsers.add_parser("convert")
     parser_convert.add_argument("num_player", type=int, choices=(4, 3))
-    parser_convert.add_argument(
-        "game_length",
-        choices=(GameLength.TONPU, GameLength.HANCHAN),
-    )
+    parser_convert.add_argument("game_length", choices=tuple(GameLength))
     parser_convert.add_argument("game_record_dir", type=Path)
     parser_convert.add_argument("game_record_extension")
     parser_convert.add_argument("annotated_data", type=Path)
@@ -213,10 +210,7 @@ def main() -> None:
 
     parser_train = subparsers.add_parser("train")
     parser_train.add_argument("num_player", type=int, choices=(4, 3))
-    parser_train.add_argument(
-        "game_length",
-        choices=(GameLength.TONPU, GameLength.HANCHAN),
-    )
+    parser_train.add_argument("game_length", choices=tuple(GameLength))
     parser_train.add_argument("training_data_path", type=Path)
     parser_train.add_argument("config_path", type=Path)
     parser_train.add_argument("model_path", type=Path)
@@ -224,10 +218,7 @@ def main() -> None:
 
     parser_predict = subparsers.add_parser("predict")
     parser_predict.add_argument("num_player", type=int, choices=(4, 3))
-    parser_predict.add_argument(
-        "game_length",
-        choices=(GameLength.TONPU, GameLength.HANCHAN),
-    )
+    parser_predict.add_argument("game_length", choices=tuple(GameLength))
     parser_predict.add_argument("model_path", type=Path)
     parser_predict.add_argument("round", type=int)
     parser_predict.add_argument("num_counter_stick", type=int)
