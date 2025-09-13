@@ -15,7 +15,7 @@ rank-predictor$ pip install .
 ### Converting the mjlog format game records into the annotated data
 
 ```sh
-rank-predictor-convert 4 h PATH/TO/game_record xml PATH/TO/annotated-data.csv
+rank-predictor convert 4 h PATH/TO/game_record xml PATH/TO/annotated-data.csv
 ```
 
 The meaning of each argument is as follows:
@@ -98,7 +98,7 @@ round,num_counter_stick,num_riichi_deposit,score_0,score_1,score_2,score_3,rank_
 ### Splitting the annotated data into train and test subsets
 
 ```sh
-rank-predictor-split PATH/TO/annotated-data.csv PATH/TO/training-data.csv PATH/TO/test-data.csv
+rank-predictor split PATH/TO/annotated-data.csv PATH/TO/training-data.csv PATH/TO/test-data.csv
 ```
 
 This command serves as a streamlined interface to the `sklearn.model_selection.train_test_split`.  
@@ -120,7 +120,7 @@ The meaning of each argument is as follows:
 ### Training and saving a model
 
 ```sh
-rank-predictor-train 4 h PATH/TO/training-data.csv PATH/TO/config.toml PATH/TO/model.pickle
+rank-predictor train 4 h PATH/TO/training-data.csv PATH/TO/config.toml PATH/TO/model.pickle
 ```
 
 The meaning of each argument is as follows:
@@ -136,7 +136,7 @@ The meaning of each argument is as follows:
 ### Predicting expected final rank
 
 ```sh
-rank-predictor 4 h PATH/TO/model.pickle 0 0 0 25000 25000 25000 25000
+rank-predictor predict 4 h PATH/TO/model.pickle 0 0 0 25000 25000 25000 25000
 ```
 
 Output:

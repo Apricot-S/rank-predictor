@@ -24,10 +24,7 @@ dependencies = [
 ]
 
 [project.scripts]
-rank-predictor-convert = "rank_predictor.application:convert"
-rank-predictor-split = "rank_predictor.application:split"
-rank-predictor-train = "rank_predictor.application:train"
-rank-predictor = "rank_predictor.application:predict"
+rank-predictor = "rank_predictor.application:main"
 
 [project.urls]
 Repository = "https://github.com/Apricot-S/rank-predictor.git"

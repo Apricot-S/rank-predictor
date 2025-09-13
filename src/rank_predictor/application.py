@@ -19,41 +19,8 @@ stream_handler.setFormatter(formatter)
 basicConfig(level=LOG_LEVEL, handlers=[stream_handler])
 
 
-def convert() -> int:
+def convert(args: argparse.Namespace) -> int:
     import rank_predictor.convert
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "num_player",
-        type=int,
-        choices=(4, 3),
-    )
-    parser.add_argument(
-        "game_length",
-        choices=(GameLength.TONPU, GameLength.HANCHAN),
-    )
-    parser.add_argument(
-        "game_record_dir",
-        type=Path,
-    )
-    parser.add_argument(
-        "game_record_extension",
-    )
-    parser.add_argument(
-        "annotated_data",
-        type=Path,
-    )
-    parser.add_argument(
-        "-f",
-        "--final-score",
-        action="store_true",
-    )
-    parser.add_argument(
-        "-n",
-        "--filename",
-        action="store_true",
-    )
-    args = parser.parse_args()
 
     num_player = NumPlayer(args.num_player)
     game_length = GameLength(args.game_length)
@@ -70,56 +37,19 @@ def convert() -> int:
     return 0
 
 
-def split() -> int:
-    import rank_predictor.split
-
-    def int_or_float(arg: str) -> int | float:
+def int_or_float(arg: str) -> int | float:
+    try:
+        return int(arg)
+    except ValueError:
         try:
-            return int(arg)
+            return float(arg)
         except ValueError:
-            try:
-                return float(arg)
-            except ValueError:
-                msg = f"invalid int or float value: '{arg}'"
-                raise argparse.ArgumentTypeError(msg) from None
+            msg = f"invalid int or float value: '{arg}'"
+            raise argparse.ArgumentTypeError(msg) from None
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "input_data_path",
-        type=Path,
-    )
-    parser.add_argument(
-        "train_data_path",
-        type=Path,
-    )
-    parser.add_argument(
-        "test_data_path",
-        type=Path,
-    )
-    parser.add_argument(
-        "--test_size",
-        type=int_or_float,
-    )
-    parser.add_argument(
-        "--train_size",
-        type=int_or_float,
-    )
-    parser.add_argument(
-        "-r",
-        "--random_state",
-        type=int,
-    )
-    parser.add_argument(
-        "-f",
-        "--shuffle-false",
-        action="store_true",
-    )
-    parser.add_argument(
-        "-y",
-        "--stratify-y",
-        action="store_true",
-    )
-    args = parser.parse_args()
+
+def split(args: argparse.Namespace) -> int:
+    import rank_predictor.split
 
     rank_predictor.split.split(
         args.input_data_path,
@@ -134,7 +64,7 @@ def split() -> int:
     return 0
 
 
-def train() -> int:
+def train(args: argparse.Namespace) -> int:
     import pickle
     import tomllib
 
@@ -142,30 +72,6 @@ def train() -> int:
     from sklearn.linear_model import LogisticRegression
 
     import rank_predictor.train
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "num_player",
-        type=int,
-        choices=(4, 3),
-    )
-    parser.add_argument(
-        "game_length",
-        choices=(GameLength.TONPU, GameLength.HANCHAN),
-    )
-    parser.add_argument(
-        "training_data_path",
-        type=Path,
-    )
-    parser.add_argument(
-        "config_path",
-        type=Path,
-    )
-    parser.add_argument(
-        "model_path",
-        type=Path,
-    )
-    args = parser.parse_args()
 
     num_player = NumPlayer(args.num_player)
     game_length = GameLength(args.game_length)
@@ -205,7 +111,7 @@ def train() -> int:
     return 0
 
 
-def predict() -> int:
+def predict(args: argparse.Namespace) -> int:
     import pickle
 
     from rank_predictor.model import Model
@@ -216,39 +122,6 @@ def predict() -> int:
         predict_proba,
     )
     from rank_predictor.validate import validate_input_scores, validate_round
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "num_player",
-        type=int,
-        choices=(4, 3),
-    )
-    parser.add_argument(
-        "game_length",
-        choices=(GameLength.TONPU, GameLength.HANCHAN),
-    )
-    parser.add_argument(
-        "model_path",
-        type=Path,
-    )
-    parser.add_argument(
-        "round",
-        type=int,
-    )
-    parser.add_argument(
-        "num_counter_stick",
-        type=int,
-    )
-    parser.add_argument(
-        "num_riichi_deposit",
-        type=int,
-    )
-    parser.add_argument(
-        "score",
-        type=int,
-        nargs="*",
-    )
-    args = parser.parse_args()
 
     num_player = NumPlayer(args.num_player)
     game_length = GameLength(args.game_length)
@@ -308,3 +181,63 @@ def predict() -> int:
         print(f"player_{i}: {a}")  # noqa: T201
 
     return 0
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers()
+
+    parser_convert = subparsers.add_parser("convert")
+    parser_convert.add_argument("num_player", type=int, choices=(4, 3))
+    parser_convert.add_argument(
+        "game_length",
+        choices=(GameLength.TONPU, GameLength.HANCHAN),
+    )
+    parser_convert.add_argument("game_record_dir", type=Path)
+    parser_convert.add_argument("game_record_extension")
+    parser_convert.add_argument("annotated_data", type=Path)
+    parser_convert.add_argument("-f", "--final-score", action="store_true")
+    parser_convert.add_argument("-n", "--filename", action="store_true")
+    parser_convert.set_defaults(func=convert)
+
+    parser_split = subparsers.add_parser("split")
+    parser_split.add_argument("input_data_path", type=Path)
+    parser_split.add_argument("train_data_path", type=Path)
+    parser_split.add_argument("test_data_path", type=Path)
+    parser_split.add_argument("--test_size", type=int_or_float)
+    parser_split.add_argument("--train_size", type=int_or_float)
+    parser_split.add_argument("-r", "--random_state", type=int)
+    parser_split.add_argument("-f", "--shuffle-false", action="store_true")
+    parser_split.add_argument("-y", "--stratify-y", action="store_true")
+    parser_split.set_defaults(func=split)
+
+    parser_train = subparsers.add_parser("train")
+    parser_train.add_argument("num_player", type=int, choices=(4, 3))
+    parser_train.add_argument(
+        "game_length",
+        choices=(GameLength.TONPU, GameLength.HANCHAN),
+    )
+    parser_train.add_argument("training_data_path", type=Path)
+    parser_train.add_argument("config_path", type=Path)
+    parser_train.add_argument("model_path", type=Path)
+    parser_train.set_defaults(func=train)
+
+    parser_predict = subparsers.add_parser("predict")
+    parser_predict.add_argument("num_player", type=int, choices=(4, 3))
+    parser_predict.add_argument(
+        "game_length",
+        choices=(GameLength.TONPU, GameLength.HANCHAN),
+    )
+    parser_predict.add_argument("model_path", type=Path)
+    parser_predict.add_argument("round", type=int)
+    parser_predict.add_argument("num_counter_stick", type=int)
+    parser_predict.add_argument("num_riichi_deposit", type=int)
+    parser_predict.add_argument("score", type=int, nargs="*")
+    parser_predict.set_defaults(func=predict)
+
+    args = parser.parse_args()
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()
