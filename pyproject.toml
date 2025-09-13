@@ -42,10 +42,10 @@ dev = [
     { include-group = "typing" },
 ]
 lint = [
-    "ruff>=0.12.2,<0.13",
+    "ruff>=0.13.0,<0.14",
 ]
 typing = [
-    "mypy>=1.16.1,<2",
+    "mypy>=1.18.1,<2",
 ]
 
 [tool.ruff]
