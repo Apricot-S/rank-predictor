@@ -53,7 +53,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **License**:
 
 ```text
-Copyright (c) 2005-2024, NumPy Developers.
+Copyright (c) 2005-2025, NumPy Developers.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
