@@ -92,7 +92,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 **License**:
 
 ```text
-Copyright (c) 2020 Ritchie Vink
+Copyright (c) 2025 Ritchie Vink
 Some portions Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
